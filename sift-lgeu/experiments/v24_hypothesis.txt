@@ -1,0 +1,30 @@
+V24 Hypothesis: Isolate init_min_num_inliers reduction (5->3) combined with V21's
+abs_pose_min_num_inliers=3 for video scenes, without touching init_min_tri_angle.
+
+V18 changed three COLMAP mapper parameters simultaneously for video scenes —
+init_min_num_inliers (5->3), init_min_tri_angle (1.0->0.5 degrees), and
+abs_pose_min_num_inliers (4->3) — and upload_failed, leaving all three parameters
+untested as individual contributions. V21 isolated abs_pose_min_num_inliers (4->3) alone
+and tied V7 at 8/51 stairs cameras (27/73 total). V22 isolated init_min_tri_angle (1.0->0.5
+degrees) on top of V21's abs_pose=3 and regressed to 7/51 stairs cameras (26/73).
+The third parameter from V18's bundle — init_min_num_inliers — has never been tested
+in isolation. This parameter controls the minimum number of inliers required for a seed
+pair to be accepted during COLMAP initialization. V7 sets it to 5 for video scenes; for
+staircase video with nearly-parallel optical axes and a shallow scene extent, even the
+geometrically best available seed pair may produce only 3–5 verified fundamental matrix
+inliers (the COLMAP sparse exhaustive matching still runs, but the H/F verification step
+yields few geometric inliers when both cameras nearly share a focus). With
+init_min_num_inliers=5, COLMAP silently discards these seed-pair candidates and either
+selects a geometrically worse seed pair — producing a poor initial 3D point cloud — or
+fails to initialize entirely, explaining why scene_0 (15 images) and scene_2 (20 images)
+sometimes plateau at only 3 registered cameras even with abs_pose_min_num_inliers=3.
+V24 reduces init_min_num_inliers from 5 to 3 (matching the P3P minimum), combined with
+V21's abs_pose_min_num_inliers=3, while explicitly keeping init_min_tri_angle at 1.0
+degrees (V22 showed that lowering it causes regression). Scene clustering inherits V16
+(GBM num_gap=0 + Lowe threshold=30 for video, best proven configuration). Non-video and
+small datasets (N<=40) retain V7 settings (init_min_num_inliers=10, abs_pose=8),
+protecting ETs and hidden structured-capture datasets from regression. Expected outcome:
+allowing COLMAP to initialize from seed pairs with 3–4 geometric inliers should yield a
+more accurately positioned initial 3D point cloud, enabling more adjacent staircase frames
+to find the 3 inlier correspondences required by abs_pose_min_num_inliers=3, potentially
+recovering additional cameras beyond V21's 8/51 stairs result.

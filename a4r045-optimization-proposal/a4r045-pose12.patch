@@ -1,0 +1,11 @@
+--- a/scripts/reconstruct_baseline.py	2026-10-15 00:14:09.000000000 +0800
++++ b/scripts/reconstruct_baseline.py	2026-10-15 23:27:58.198680648 +0800
+@@ -41,7 +41,7 @@
+         options.random_seed = 0
+         options.ba_use_gpu = False
+         options.mapper.init_min_tri_angle = 8.0
+-        options.mapper.abs_pose_min_num_inliers = 15
++        options.mapper.abs_pose_min_num_inliers = 12
+         models = run / "sparse"
+         models.mkdir()
+         maps = pycolmap.incremental_mapping(str(db_path), cfg["image_dir"], str(models), options=options)

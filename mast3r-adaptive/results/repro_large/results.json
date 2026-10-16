@@ -1,0 +1,21 @@
+[
+  {
+    "mode": "adaptive",
+    "mean_score": 78.48101265822784,
+    "mean_mAA": 64.58333333333334,
+    "mean_clusterness": 100.0,
+    "per_dataset": {
+      "pt_sacrecoeur_trevi_tajmahal": {
+        "score": 78.48101265822784,
+        "mAA": 64.58333333333334,
+        "clusterness": 100.0,
+        "num_images": 225,
+        "matched": 1018,
+        "accepted": 1018,
+        "rescued": 0,
+        "registered": 225,
+        "elapsed_s": 501.160546541214
+      }
+    }
+  }
+]

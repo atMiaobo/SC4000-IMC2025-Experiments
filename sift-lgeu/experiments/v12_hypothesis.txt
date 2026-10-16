@@ -1,0 +1,18 @@
+V12 Hypothesis: Video-aware temporal pair augmentation for scene clustering.
+
+In V9 (GBM+TOPK=20), 14 of 51 stairs images end up in "outliers" with 0 cameras
+registered. Stairs is a video sequence (N=51 > MAX_EXHAUSTIVE_N=40), so LGEU pair
+selection is used instead of exhaustive SIFT. LGEU scores pairs by global descriptor
+similarity and selects the top-20 neighbors per image; however, for a simultaneous
+dual-camera video recording with overlapping timestamps, the LGEU model may misjudge
+visual similarity and fail to select the temporally adjacent frames that provide the
+strongest geometric overlap. When a frame's key neighbors are not among the LGEU-selected
+pairs, that frame gets no valid SIFT edges and is stranded as an outlier — preventing
+COLMAP from registering it. V12 supplements the LGEU-selected pairs with mandatory
+sequential temporal neighbor pairs (±2 frames sorted by embedded filename timestamp) for
+all video sequences (>=70% of filenames contain a 10-13 digit timestamp). This guarantees
+each frame connects to its 1-2 nearest temporal neighbors before SIFT matching, regardless
+of LGEU ranking. The extra pairs add at most 2*(N-1) additional SIFT comparisons (~88 for
+stairs), a modest cost. We expect fewer outlier images for stairs (and potentially other
+video hidden datasets) and a net increase in registered cameras over V9 without regressing
+ETs or non-video datasets (which are unaffected by the new logic).

@@ -1,0 +1,40 @@
+{
+  "pair_count": 2937,
+  "positive_pairs": 749,
+  "lgeu_pair_auc": 0.9273058776723627,
+  "lgeu_pair_average_precision": 0.6884855773902314,
+  "methods": [
+    {
+      "method": "A_fixed_topk_retrieval",
+      "selected_pairs": 544,
+      "positive_rate_selected": 0.5496323529411765,
+      "precision_selected": 0.5496323529411765,
+      "recall_of_all_positives": 0.3991989319092123,
+      "wall_time_sec": 0.2531056470002113
+    },
+    {
+      "method": "B_graph_retrieval_only",
+      "selected_pairs": 220,
+      "positive_rate_selected": 0.6954545454545454,
+      "precision_selected": 0.6954545454545454,
+      "recall_of_all_positives": 0.20427236315086783,
+      "wall_time_sec": 0.18985113199960324
+    },
+    {
+      "method": "C_lgeu_naive_topk",
+      "selected_pairs": 543,
+      "positive_rate_selected": 0.6132596685082873,
+      "precision_selected": 0.6132596685082873,
+      "recall_of_all_positives": 0.4445927903871829,
+      "wall_time_sec": 0.17799400600006265
+    },
+    {
+      "method": "D_full_lgeu_budget_graph",
+      "selected_pairs": 220,
+      "positive_rate_selected": 0.6363636363636364,
+      "precision_selected": 0.6363636363636364,
+      "recall_of_all_positives": 0.18691588785046728,
+      "wall_time_sec": 0.1869262059999528
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "best_version": 7,
+  "best_cameras": 27,
+  "best_ets": 19,
+  "best_stairs": 8,
+  "cutoff_utc": "2026-10-15T10:00:00+00:00",
+  "queue": [],
+  "completed": [
+    {
+      "version": 9,
+      "hypothesis": "GBM+TOPK20: V8 model quality (AUC=0.690) + V7 conservative pairing (TOPK=20). Preserves V7 scene splits while using better pair ranker. Expected: 27/73 public, better hidden.",
+      "status": "regression",
+      "start_time": "2026-10-14T18:49:35.869214+00:00",
+      "result": {
+        "version": 9,
+        "total_cameras": 25,
+        "ets_cameras": 19,
+        "stairs_cameras": 6,
+        "dataset_errors": 0,
+        "diagnostics_version": 9
+      },
+      "end_time": "2026-10-14T18:53:17.327246+00:00"
+    },
+    {
+      "version": 10,
+      "hypothesis": "GBM+TOPK25: midpoint grid search between V7 (TOPK=20, 27/73) and V8 (TOPK=30, 22/73). Tests whether TOPK=25 improves hidden dataset coverage without triggering stairs over-merge.",
+      "status": "regression",
+      "start_time": "2026-10-14T18:53:47.329428+00:00",
+      "result": {
+        "version": 10,
+        "total_cameras": 22,
+        "ets_cameras": 19,
+        "stairs_cameras": 3,
+        "dataset_errors": 0,
+        "diagnostics_version": 10
+      },
+      "end_time": "2026-10-14T19:00:34.888308+00:00"
+    },
+    {
+      "version": 11,
+      "hypothesis": "Lower Lowe threshold (30 vs 40) for exhaustive-path datasets (N<=40). ETs has 2 outlier images with 30-39 matches; lowering threshold may connect them to scene_0 for COLMAP registration.",
+      "status": "regression",
+      "start_time": "2026-10-14T19:01:04.890417+00:00",
+      "result": {
+        "version": 11,
+        "total_cameras": 16,
+        "ets_cameras": 10,
+        "stairs_cameras": 6,
+        "dataset_errors": 0,
+        "diagnostics_version": 11
+      },
+      "end_time": "2026-10-14T19:04:45.817174+00:00"
+    }
+  ],
+  "leaderboard": [
+    {
+      "version": 7,
+      "ets": 19,
+      "stairs": 8,
+      "total": 27,
+      "note": "V7 BEST: exhaustive for video N<=100"
+    },
+    {
+      "version": 9,
+      "ets": 19,
+      "stairs": 6,
+      "total": 25,
+      "note": "auto-loop v9"
+    },
+    {
+      "version": 5,
+      "ets": 19,
+      "stairs": 3,
+      "total": 22,
+      "note": "V5 LGEU+MAGSAC; CLI OK"
+    },
+    {
+      "version": 8,
+      "ets": 19,
+      "stairs": 3,
+      "total": 22,
+      "note": "V8 GBM+TOPK30: stairs over-merged"
+    },
+    {
+      "version": 10,
+      "ets": 19,
+      "stairs": 3,
+      "total": 22,
+      "note": "auto-loop v10"
+    },
+    {
+      "version": 4,
+      "ets": 19,
+      "stairs": 2,
+      "total": 21,
+      "note": "V4 baseline, exhaustive SIFT"
+    },
+    {
+      "version": 6,
+      "ets": 19,
+      "stairs": 0,
+      "total": 19,
+      "note": "V6 crash isolation; stairs regressed"
+    },
+    {
+      "version": 11,
+      "ets": 10,
+      "stairs": 6,
+      "total": 16,
+      "note": "auto-loop v11"
+    }
+  ],
+  "consecutive_failures": 0,
+  "smoke_runs_this_hour": 0,
+  "full_runs_this_hour": 0,
+  "hour_start": "2026-10-14T18:45:09+00:00"
+}

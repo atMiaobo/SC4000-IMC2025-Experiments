@@ -1,0 +1,39 @@
+{
+  "dataset": "pt_sacrecoeur_trevi_tajmahal",
+  "mode": "adaptive",
+  "num_images": 225,
+  "num_candidate_pairs": 1018,
+  "num_matched_pairs": 1018,
+  "num_accepted_pairs": 1018,
+  "num_rescued_pairs": 0,
+  "component_sizes": [
+    75,
+    75,
+    75
+  ],
+  "elapsed_seconds": 501.160546541214,
+  "colmap": {
+    "num_models": 3,
+    "models": [
+      {
+        "map_id": 0,
+        "registered": 75,
+        "cluster": "cluster0"
+      },
+      {
+        "map_id": 1,
+        "registered": 75,
+        "cluster": "cluster1"
+      },
+      {
+        "map_id": 2,
+        "registered": 75,
+        "cluster": "cluster2"
+      }
+    ],
+    "num_registered": 225,
+    "num_images": 225,
+    "database": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/repro_large/adaptive/pt_sacrecoeur_trevi_tajmahal/colmap/database.db",
+    "sfm_dir": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/repro_large/adaptive/pt_sacrecoeur_trevi_tajmahal/colmap/sfm"
+  }
+}

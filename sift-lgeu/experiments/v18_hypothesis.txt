@@ -1,0 +1,20 @@
+V18 Hypothesis: All V12-V17 experiments targeted scene clustering (pair selection quality,
+Lowe match thresholds, SIFT feature density) but left the SfM step unchanged from V7.
+In the V9 per-scene diagnostics, even correctly-clustered stairs scenes — scene_0 (15
+images, video) and scene_2 (20 images, video) — register only 3 cameras each via COLMAP.
+This reveals a separate, untouched bottleneck: the COLMAP incremental mapper settings in
+run_sfm_v7. For forward-facing staircase video, the initial 3D model is built from just
+two seed frames with a small baseline, yielding a sparse point cloud. As the mapper
+attempts to extend the reconstruction to adjacent frames, those frames often have fewer
+than 4 3D-point correspondences with the existing model — the current threshold
+(abs_pose_min_num_inliers=4). Additionally, the seed-pair triangulation angle requirement
+(init_min_tri_angle=1.0 degrees) is too strict for nearly-forward camera motion, causing
+initialization to fail or choose a sub-optimal seed pair. V18 relaxes three COLMAP mapper
+thresholds for video scenes only: init_min_num_inliers from 5 to 3, init_min_tri_angle
+from 1.0 to 0.5 degrees, and abs_pose_min_num_inliers from 4 to 3 (the P3P minimum).
+These changes allow the mapper to register cameras that have sparse-but-real geometric
+overlap with the existing reconstruction, directly addressing why only 3/15 and 3/20
+cameras are recovered in correctly-clustered stairs scenes. Scene clustering inherits
+V16's improvements (num_gap=0 + Lowe threshold=30 for video). Non-video scenes retain
+the original V7 SfM settings unchanged, so ETs and hidden structured-capture datasets
+are not affected.

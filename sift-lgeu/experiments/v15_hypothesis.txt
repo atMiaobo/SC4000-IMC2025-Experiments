@@ -1,0 +1,17 @@
+V15 Hypothesis: In V9 (GBM+TOPK=20), 14 of 51 stairs images are stranded as "outliers"
+with 0 cameras registered. Stairs is a video sequence (N=51 > MAX_EXHAUSTIVE_N=40) with
+forward-facing staircase motion; consecutive frames have limited visual overlap, so many
+valid same-scene pairs produce only 30-39 Lowe-ratio matches — just below the standard
+GOOD_MATCH_THRESHOLD of 40. These pairs would survive MAGSAC geometric verification
+(inliers >= MIN_MAGSAC_INLIERS=3, confirming consistent camera geometry), but are blocked
+from forming edges purely by the Lowe count cutoff, leaving their images with no valid
+graph edges and thus stranded as outliers before COLMAP is even invoked. Previous fixes
+(V12 temporal augmentation, V13 cosine-only ranking, V14 num_gap zeroing) all targeted
+pair selection quality but left the threshold at 40, so the core cutoff problem remained.
+V15 lowers good_match_threshold from 40 to 30 specifically for video sequences (N >
+MAX_EXHAUSTIVE_N, >=70% timestamp filenames), where LGEU pair pre-selection (TOPK=20)
+already limits the candidate set to the most visually similar pairs, making cross-scene
+false positives unlikely, and MAGSAC (MIN_MAGSAC_INLIERS=3) provides a final geometric
+guard. Non-video and small datasets use the unchanged V9 logic (threshold=40, TOPK=20).
+We expect fewer outlier images for stairs (and any hidden video datasets), more registered
+cameras overall, and no regression in ETs or non-video datasets.

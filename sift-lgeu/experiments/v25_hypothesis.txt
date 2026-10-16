@@ -1,0 +1,26 @@
+V25 Hypothesis: All prior versions V7–V24 call pycolmap.incremental_mapping() and then
+take ONLY the largest sub-reconstruction with:
+    best_rec = max(reconstructions.values(), key=lambda r: r.num_reg_images())
+This silently discards every smaller sub-reconstruction that COLMAP produced. For the
+stairs dataset, two physically separate camera rigs record simultaneously from different
+positions. COLMAP's incremental mapper naturally produces multiple disjoint
+sub-reconstructions — one per rig cluster — because the two rigs share no geometric
+overlap and cannot be merged into a single model. The V9 diagnostics confirm this
+structure: scene_0 (15 images, 3 cameras registered in V9) and scene_2 (20 images,
+3 cameras) are two separate video scenes; V21 (the current best at 8/51) reaches 8
+cameras by lowering abs_pose_min_num_inliers to 3. However, even within each scene,
+COLMAP likely produces additional smaller sub-reconstructions (e.g., two isolated
+temporal clusters within scene_0's 15 images that could not be bridged) that are
+currently discarded. V25 merges poses from ALL sub-reconstructions returned by
+incremental_mapping, sorting by descending registration count so that for any image
+appearing in multiple sub-reconstructions, the pose from the largest (most globally
+constrained) reconstruction wins. This approach does not change any matching or mapper
+threshold — it simply recovers cameras that COLMAP correctly reconstructed but that
+were being silently dropped. Scene clustering is unchanged from V21/V16 (GBM num_gap=0
++ Lowe threshold=30 for video, TOPK=20). Mapper settings are identical to V21
+(abs_pose_min_num_inliers=3 for video, init_min_tri_angle=1.0, init_min_num_inliers=5).
+Non-video and small datasets (N<=40) are fully unaffected — their exhaustive path
+typically produces a single reconstruction, so merging all reconstructions is a no-op.
+Expected outcome: if COLMAP produces 2+ sub-reconstructions per video scene (a plausible
+scenario for dual-rig staircase recording), V25 could recover the cameras from secondary
+sub-reconstructions, potentially exceeding V21's 8/51 stairs result.

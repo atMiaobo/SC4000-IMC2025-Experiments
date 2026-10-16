@@ -1,0 +1,62 @@
+[
+  {
+    "mode": "baseline",
+    "mean_score": 55.76992327978901,
+    "mean_mAA": 58.5042735042735,
+    "mean_clusterness": 53.35561497326203,
+    "per_dataset": {
+      "ETs": {
+        "score": 43.699999999999996,
+        "mAA": 44.230769230769226,
+        "clusterness": 43.18181818181818,
+        "num_images": 22,
+        "matched": 229,
+        "accepted": 201,
+        "rescued": 0,
+        "registered": 21,
+        "elapsed_s": 74.81145548820496
+      },
+      "imc2023_haiper": {
+        "score": 67.83984655957804,
+        "mAA": 72.77777777777777,
+        "clusterness": 63.52941176470588,
+        "num_images": 54,
+        "matched": 512,
+        "accepted": 427,
+        "rescued": 0,
+        "registered": 54,
+        "elapsed_s": 142.7770540714264
+      }
+    }
+  },
+  {
+    "mode": "adaptive",
+    "mean_score": 68.88531955520611,
+    "mean_mAA": 55.47008547008547,
+    "mean_clusterness": 93.18181818181819,
+    "per_dataset": {
+      "ETs": {
+        "score": 55.0344827586207,
+        "mAA": 40.38461538461539,
+        "clusterness": 86.36363636363636,
+        "num_images": 22,
+        "matched": 94,
+        "accepted": 81,
+        "rescued": 6,
+        "registered": 19,
+        "elapsed_s": 25.31533694267273
+      },
+      "imc2023_haiper": {
+        "score": 82.73615635179152,
+        "mAA": 70.55555555555556,
+        "clusterness": 100.0,
+        "num_images": 54,
+        "matched": 204,
+        "accepted": 192,
+        "rescued": 0,
+        "registered": 54,
+        "elapsed_s": 64.49633479118347
+      }
+    }
+  }
+]

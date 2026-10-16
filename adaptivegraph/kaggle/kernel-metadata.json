@@ -1,0 +1,16 @@
+{
+  "id": "miaobo/adaptivegraph-fast-ref",
+  "title": "AdaptiveGraph FAST ref",
+  "code_file": "AdaptiveGraph_FAST_Kaggle.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["gpu"],
+  "dataset_sources": ["miaobo/adaptive-graph-imc25-bundle"],
+  "competition_sources": ["image-matching-challenge-2025-ongoing"],
+  "kernel_sources": [],
+  "model_sources": []
+}

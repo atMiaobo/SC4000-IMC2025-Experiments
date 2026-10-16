@@ -1,0 +1,16 @@
+{
+  "id": "miaobo/mast3r-adaptive-orig",
+  "title": "MASt3R adaptive orig",
+  "code_file": "MASt3R_Adaptive_Kaggle.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["gpu"],
+  "dataset_sources": ["miaobo/mast3r-imc25-bundle"],
+  "competition_sources": ["image-matching-challenge-2025"],
+  "kernel_sources": [],
+  "model_sources": []
+}

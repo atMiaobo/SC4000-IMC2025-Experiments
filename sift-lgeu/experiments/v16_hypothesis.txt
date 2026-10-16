@@ -1,0 +1,19 @@
+V16 Hypothesis: V14 and V15 each targeted a distinct bottleneck for video sequences like
+stairs but never in combination. V14 zeroed the GBM model's num_gap feature before scoring
+(neutralising the timestamp artifact that causes the model to treat temporally-adjacent
+same-scene frames as cross-scene), but kept good_match_threshold=40 — result: 6/51 stairs,
+identical to V9, because the improved pair selection still blocked weak-overlap edges. V15
+lowered good_match_threshold to 30 for video sequences (admitting pairs with 30–39 Lowe
+matches that pass MAGSAC geometric verification), but left num_gap active — result: 7/51
+stairs, a marginal gain, because the biased GBM model still ranked some valid pairs below
+the TOPK=20 cut. V16 combines both changes simultaneously for video sequences (N >
+MAX_EXHAUSTIVE_N, >=70% timestamp filenames): the GBM model scores all pairs with num_gap
+forced to 0.0, producing a ranking driven purely by visual similarity (cosine, mutual rank,
+aspect, area ratio, name overlap), and edges are admitted at a Lowe count of 30 rather than
+40, with MAGSAC (MIN_MAGSAC_INLIERS=3) and LGEU TOPK=20 still guarding against cross-scene
+merging. Because these two fixes are orthogonal — one improves WHICH pairs are selected, the
+other lowers the bar for FORMING edges among selected pairs — their combination should reduce
+both the number of outlier images and the number of frames that are correctly clustered but
+fail to form valid SIFT edges, yielding a net increase in registered stairs cameras over
+V15 (7/51) without regressing ETs or non-video hidden datasets (which are unaffected by
+the video-path changes).

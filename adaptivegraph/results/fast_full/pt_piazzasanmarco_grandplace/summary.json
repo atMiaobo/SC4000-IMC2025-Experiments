@@ -1,0 +1,122 @@
+{
+  "dataset": "pt_piazzasanmarco_grandplace",
+  "num_images": 168,
+  "num_candidate_pairs": 2076,
+  "num_accepted_pairs": 1979,
+  "num_rescued_pairs": 0,
+  "component_sizes": [
+    100,
+    68
+  ],
+  "elapsed_seconds": 453.7518472671509,
+  "colmap": {
+    "num_models": 6,
+    "models": [
+      {
+        "map_id": 4,
+        "registered": 7,
+        "cluster": "cluster0"
+      },
+      {
+        "map_id": 5,
+        "registered": 19,
+        "cluster": "cluster1"
+      },
+      {
+        "map_id": 3,
+        "registered": 20,
+        "cluster": "cluster2"
+      },
+      {
+        "map_id": 1,
+        "registered": 24,
+        "cluster": "cluster3"
+      },
+      {
+        "map_id": 0,
+        "registered": 61,
+        "cluster": "cluster4"
+      },
+      {
+        "map_id": 2,
+        "registered": 98,
+        "cluster": "cluster5"
+      }
+    ],
+    "num_registered": 163,
+    "num_images": 168,
+    "database": "outputs/fast_full/pt_piazzasanmarco_grandplace/colmap/database.db",
+    "sfm_dir": "outputs/fast_full/pt_piazzasanmarco_grandplace/colmap/sfm"
+  },
+  "config": {
+    "name": "fast_smoke",
+    "retrieval": {
+      "model_name": "vit_base_patch14_dinov2.lvd142m",
+      "batch_size": 8,
+      "min_neighbors": 10,
+      "max_neighbors": 18,
+      "similarity_threshold": 0.24
+    },
+    "matching": {
+      "base_resize": 960,
+      "max_keypoints": 2048,
+      "detection_threshold": 0.01,
+      "lightglue_filter_threshold": 0.2,
+      "width_confidence": 0.99,
+      "depth_confidence": -1.0,
+      "ransac_reproj_threshold": 4.0,
+      "ransac_confidence": 0.9999,
+      "ransac_max_iters": 20000,
+      "coverage_grid": 4,
+      "strong_min_inliers": 45,
+      "strong_min_ratio": 0.2,
+      "strong_min_coverage": 0.06,
+      "easy_inliers": 90,
+      "easy_ratio": 0.48,
+      "easy_coverage": 0.2,
+      "triangle_borderline_inliers": 30
+    },
+    "rescue": {
+      "enable_tiles": false,
+      "tile_resize": 1024,
+      "full_tile_for_all_valid": false,
+      "tile_trigger_min_inliers": 18,
+      "tile_trigger_max_inliers": 105,
+      "tile_trigger_coverage": 0.3,
+      "high_similarity_threshold": 0.48,
+      "max_rescues_per_image": 0,
+      "enable_rotation": false,
+      "rotation_similarity_threshold": 0.55,
+      "rotation_max_base_inliers": 35,
+      "rotation_stop_inliers": 80,
+      "low_degree_rescue": false,
+      "low_degree_target": 2,
+      "low_degree_extra_pairs": 2
+    },
+    "graph": {
+      "min_component_size": 2,
+      "triangle_support_required_for_borderline": 1,
+      "singleton_as_outlier": true
+    },
+    "colmap": {
+      "camera_model": "SIMPLE_RADIAL",
+      "camera_mode": "PER_IMAGE",
+      "verify_max_error": 4.0,
+      "verify_min_num_inliers": 15,
+      "min_num_matches": 15,
+      "min_model_size": 3,
+      "max_num_models": 25,
+      "max_model_overlap": 20,
+      "init_min_num_inliers": 55,
+      "abs_pose_min_num_inliers": 15,
+      "abs_pose_min_inlier_ratio": 0.2,
+      "num_threads": -1
+    },
+    "runtime": {
+      "device": "cuda",
+      "seed": 2026,
+      "use_amp": true,
+      "keep_intermediate": true
+    }
+  }
+}

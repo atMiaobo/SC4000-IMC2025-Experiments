@@ -1,0 +1,32 @@
+{
+  "dataset": "fbk_vineyard",
+  "mode": "baseline",
+  "num_images": 163,
+  "num_candidate_pairs": 2288,
+  "num_matched_pairs": 2288,
+  "num_accepted_pairs": 1833,
+  "num_rescued_pairs": 0,
+  "component_sizes": [
+    163
+  ],
+  "elapsed_seconds": 730.1248662471771,
+  "colmap": {
+    "num_models": 2,
+    "models": [
+      {
+        "map_id": 1,
+        "registered": 50,
+        "cluster": "cluster0"
+      },
+      {
+        "map_id": 0,
+        "registered": 116,
+        "cluster": "cluster1"
+      }
+    ],
+    "num_registered": 162,
+    "num_images": 163,
+    "database": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/fbk/baseline/fbk_vineyard/colmap/database.db",
+    "sfm_dir": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/fbk/baseline/fbk_vineyard/colmap/sfm"
+  }
+}

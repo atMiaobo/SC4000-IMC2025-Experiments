@@ -1,0 +1,1757 @@
+[
+  {
+    "dataset": "ETs",
+    "num_images": 22,
+    "num_candidate_pairs": 224,
+    "num_accepted_pairs": 68,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      10,
+      9,
+      1,
+      1,
+      1
+    ],
+    "elapsed_seconds": 13.100106954574585,
+    "colmap": {
+      "num_models": 2,
+      "models": [
+        {
+          "map_id": 0,
+          "registered": 9,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 1,
+          "registered": 10,
+          "cluster": "cluster1"
+        }
+      ],
+      "num_registered": 19,
+      "num_images": 22,
+      "database": "outputs/fast_full/ETs/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/ETs/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "amy_gardens",
+    "num_images": 200,
+    "num_candidate_pairs": 2467,
+    "num_accepted_pairs": 455,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      64,
+      47,
+      12,
+      6,
+      5,
+      5,
+      5,
+      4,
+      4,
+      4,
+      4,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "elapsed_seconds": 122.05085945129395,
+    "colmap": {
+      "num_models": 17,
+      "models": [
+        {
+          "map_id": 9,
+          "registered": 3,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 15,
+          "registered": 3,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 0,
+          "registered": 4,
+          "cluster": "cluster2"
+        },
+        {
+          "map_id": 4,
+          "registered": 4,
+          "cluster": "cluster3"
+        },
+        {
+          "map_id": 7,
+          "registered": 4,
+          "cluster": "cluster4"
+        },
+        {
+          "map_id": 13,
+          "registered": 4,
+          "cluster": "cluster5"
+        },
+        {
+          "map_id": 16,
+          "registered": 4,
+          "cluster": "cluster6"
+        },
+        {
+          "map_id": 3,
+          "registered": 5,
+          "cluster": "cluster7"
+        },
+        {
+          "map_id": 5,
+          "registered": 5,
+          "cluster": "cluster8"
+        },
+        {
+          "map_id": 8,
+          "registered": 5,
+          "cluster": "cluster9"
+        },
+        {
+          "map_id": 10,
+          "registered": 5,
+          "cluster": "cluster10"
+        },
+        {
+          "map_id": 11,
+          "registered": 5,
+          "cluster": "cluster11"
+        },
+        {
+          "map_id": 14,
+          "registered": 6,
+          "cluster": "cluster12"
+        },
+        {
+          "map_id": 12,
+          "registered": 7,
+          "cluster": "cluster13"
+        },
+        {
+          "map_id": 6,
+          "registered": 12,
+          "cluster": "cluster14"
+        },
+        {
+          "map_id": 2,
+          "registered": 17,
+          "cluster": "cluster15"
+        },
+        {
+          "map_id": 1,
+          "registered": 61,
+          "cluster": "cluster16"
+        }
+      ],
+      "num_registered": 148,
+      "num_images": 200,
+      "database": "outputs/fast_full/amy_gardens/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/amy_gardens/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "fbk_vineyard",
+    "num_images": 163,
+    "num_candidate_pairs": 2086,
+    "num_accepted_pairs": 471,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      115,
+      48
+    ],
+    "elapsed_seconds": 164.8172996044159,
+    "colmap": {
+      "num_models": 8,
+      "models": [
+        {
+          "map_id": 5,
+          "registered": 5,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 1,
+          "registered": 19,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 7,
+          "registered": 23,
+          "cluster": "cluster2"
+        },
+        {
+          "map_id": 2,
+          "registered": 35,
+          "cluster": "cluster3"
+        },
+        {
+          "map_id": 6,
+          "registered": 36,
+          "cluster": "cluster4"
+        },
+        {
+          "map_id": 3,
+          "registered": 40,
+          "cluster": "cluster5"
+        },
+        {
+          "map_id": 0,
+          "registered": 48,
+          "cluster": "cluster6"
+        },
+        {
+          "map_id": 4,
+          "registered": 48,
+          "cluster": "cluster7"
+        }
+      ],
+      "num_registered": 158,
+      "num_images": 163,
+      "database": "outputs/fast_full/fbk_vineyard/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/fbk_vineyard/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "imc2023_haiper",
+    "num_images": 54,
+    "num_candidate_pairs": 496,
+    "num_accepted_pairs": 183,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      31,
+      23
+    ],
+    "elapsed_seconds": 41.81270790100098,
+    "colmap": {
+      "num_models": 3,
+      "models": [
+        {
+          "map_id": 0,
+          "registered": 23,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 2,
+          "registered": 23,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 1,
+          "registered": 26,
+          "cluster": "cluster2"
+        }
+      ],
+      "num_registered": 54,
+      "num_images": 54,
+      "database": "outputs/fast_full/imc2023_haiper/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/imc2023_haiper/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "imc2023_heritage",
+    "num_images": 209,
+    "num_candidate_pairs": 2250,
+    "num_accepted_pairs": 425,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      58,
+      32,
+      12,
+      11,
+      9,
+      5,
+      5,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "elapsed_seconds": 311.77582836151123,
+    "colmap": {
+      "num_models": 8,
+      "models": [
+        {
+          "map_id": 2,
+          "registered": 3,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 6,
+          "registered": 3,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 7,
+          "registered": 4,
+          "cluster": "cluster2"
+        },
+        {
+          "map_id": 4,
+          "registered": 8,
+          "cluster": "cluster3"
+        },
+        {
+          "map_id": 5,
+          "registered": 10,
+          "cluster": "cluster4"
+        },
+        {
+          "map_id": 1,
+          "registered": 11,
+          "cluster": "cluster5"
+        },
+        {
+          "map_id": 0,
+          "registered": 32,
+          "cluster": "cluster6"
+        },
+        {
+          "map_id": 3,
+          "registered": 56,
+          "cluster": "cluster7"
+        }
+      ],
+      "num_registered": 124,
+      "num_images": 209,
+      "database": "outputs/fast_full/imc2023_heritage/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/imc2023_heritage/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "imc2023_theather_imc2024_church",
+    "num_images": 76,
+    "num_candidate_pairs": 873,
+    "num_accepted_pairs": 610,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      50,
+      26
+    ],
+    "elapsed_seconds": 67.82792210578918,
+    "colmap": {
+      "num_models": 2,
+      "models": [
+        {
+          "map_id": 1,
+          "registered": 26,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 0,
+          "registered": 49,
+          "cluster": "cluster1"
+        }
+      ],
+      "num_registered": 75,
+      "num_images": 76,
+      "database": "outputs/fast_full/imc2023_theather_imc2024_church/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/imc2023_theather_imc2024_church/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "imc2024_dioscuri_baalshamin",
+    "num_images": 138,
+    "num_candidate_pairs": 1667,
+    "num_accepted_pairs": 767,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      49,
+      36,
+      16,
+      15,
+      9,
+      9,
+      1,
+      1,
+      1,
+      1
+    ],
+    "elapsed_seconds": 115.89388036727905,
+    "colmap": {
+      "num_models": 7,
+      "models": [
+        {
+          "map_id": 5,
+          "registered": 4,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 6,
+          "registered": 6,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 3,
+          "registered": 9,
+          "cluster": "cluster2"
+        },
+        {
+          "map_id": 1,
+          "registered": 15,
+          "cluster": "cluster3"
+        },
+        {
+          "map_id": 4,
+          "registered": 16,
+          "cluster": "cluster4"
+        },
+        {
+          "map_id": 2,
+          "registered": 33,
+          "cluster": "cluster5"
+        },
+        {
+          "map_id": 0,
+          "registered": 49,
+          "cluster": "cluster6"
+        }
+      ],
+      "num_registered": 131,
+      "num_images": 138,
+      "database": "outputs/fast_full/imc2024_dioscuri_baalshamin/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/imc2024_dioscuri_baalshamin/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "imc2024_lizard_pond",
+    "num_images": 214,
+    "num_candidate_pairs": 2381,
+    "num_accepted_pairs": 519,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      73,
+      41,
+      20,
+      9,
+      9,
+      4,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "elapsed_seconds": 120.80808568000793,
+    "colmap": {
+      "num_models": 8,
+      "models": [
+        {
+          "map_id": 7,
+          "registered": 3,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 6,
+          "registered": 4,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 5,
+          "registered": 5,
+          "cluster": "cluster2"
+        },
+        {
+          "map_id": 4,
+          "registered": 8,
+          "cluster": "cluster3"
+        },
+        {
+          "map_id": 0,
+          "registered": 17,
+          "cluster": "cluster4"
+        },
+        {
+          "map_id": 3,
+          "registered": 20,
+          "cluster": "cluster5"
+        },
+        {
+          "map_id": 2,
+          "registered": 41,
+          "cluster": "cluster6"
+        },
+        {
+          "map_id": 1,
+          "registered": 55,
+          "cluster": "cluster7"
+        }
+      ],
+      "num_registered": 152,
+      "num_images": 214,
+      "database": "outputs/fast_full/imc2024_lizard_pond/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/imc2024_lizard_pond/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "pt_brandenburg_british_buckingham",
+    "num_images": 225,
+    "num_candidate_pairs": 3016,
+    "num_accepted_pairs": 2990,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      75,
+      75,
+      74,
+      1
+    ],
+    "elapsed_seconds": 228.83064651489258,
+    "colmap": {
+      "num_models": 3,
+      "models": [
+        {
+          "map_id": 1,
+          "registered": 74,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 0,
+          "registered": 75,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 2,
+          "registered": 75,
+          "cluster": "cluster2"
+        }
+      ],
+      "num_registered": 224,
+      "num_images": 225,
+      "database": "outputs/fast_full/pt_brandenburg_british_buckingham/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/pt_brandenburg_british_buckingham/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "pt_piazzasanmarco_grandplace",
+    "num_images": 168,
+    "num_candidate_pairs": 2076,
+    "num_accepted_pairs": 1979,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      100,
+      68
+    ],
+    "elapsed_seconds": 453.7518472671509,
+    "colmap": {
+      "num_models": 6,
+      "models": [
+        {
+          "map_id": 4,
+          "registered": 7,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 5,
+          "registered": 19,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 3,
+          "registered": 20,
+          "cluster": "cluster2"
+        },
+        {
+          "map_id": 1,
+          "registered": 24,
+          "cluster": "cluster3"
+        },
+        {
+          "map_id": 0,
+          "registered": 61,
+          "cluster": "cluster4"
+        },
+        {
+          "map_id": 2,
+          "registered": 98,
+          "cluster": "cluster5"
+        }
+      ],
+      "num_registered": 163,
+      "num_images": 168,
+      "database": "outputs/fast_full/pt_piazzasanmarco_grandplace/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/pt_piazzasanmarco_grandplace/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "pt_sacrecoeur_trevi_tajmahal",
+    "num_images": 225,
+    "num_candidate_pairs": 2853,
+    "num_accepted_pairs": 2849,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      75,
+      75,
+      75
+    ],
+    "elapsed_seconds": 241.26330184936523,
+    "colmap": {
+      "num_models": 4,
+      "models": [
+        {
+          "map_id": 0,
+          "registered": 2,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 1,
+          "registered": 75,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 2,
+          "registered": 75,
+          "cluster": "cluster2"
+        },
+        {
+          "map_id": 3,
+          "registered": 75,
+          "cluster": "cluster3"
+        }
+      ],
+      "num_registered": 225,
+      "num_images": 225,
+      "database": "outputs/fast_full/pt_sacrecoeur_trevi_tajmahal/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/pt_sacrecoeur_trevi_tajmahal/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "pt_stpeters_stpauls",
+    "num_images": 200,
+    "num_candidate_pairs": 2600,
+    "num_accepted_pairs": 2597,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      100,
+      100
+    ],
+    "elapsed_seconds": 215.08662390708923,
+    "colmap": {
+      "num_models": 2,
+      "models": [
+        {
+          "map_id": 0,
+          "registered": 100,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 1,
+          "registered": 100,
+          "cluster": "cluster1"
+        }
+      ],
+      "num_registered": 200,
+      "num_images": 200,
+      "database": "outputs/fast_full/pt_stpeters_stpauls/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/pt_stpeters_stpauls/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  },
+  {
+    "dataset": "stairs",
+    "num_images": 51,
+    "num_candidate_pairs": 638,
+    "num_accepted_pairs": 59,
+    "num_rescued_pairs": 0,
+    "component_sizes": [
+      13,
+      10,
+      8,
+      3,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "elapsed_seconds": 27.644027709960938,
+    "colmap": {
+      "num_models": 6,
+      "models": [
+        {
+          "map_id": 0,
+          "registered": 2,
+          "cluster": "cluster0"
+        },
+        {
+          "map_id": 2,
+          "registered": 3,
+          "cluster": "cluster1"
+        },
+        {
+          "map_id": 1,
+          "registered": 4,
+          "cluster": "cluster2"
+        },
+        {
+          "map_id": 4,
+          "registered": 6,
+          "cluster": "cluster3"
+        },
+        {
+          "map_id": 3,
+          "registered": 7,
+          "cluster": "cluster4"
+        },
+        {
+          "map_id": 5,
+          "registered": 7,
+          "cluster": "cluster5"
+        }
+      ],
+      "num_registered": 25,
+      "num_images": 51,
+      "database": "outputs/fast_full/stairs/colmap/database.db",
+      "sfm_dir": "outputs/fast_full/stairs/colmap/sfm"
+    },
+    "config": {
+      "name": "fast_smoke",
+      "retrieval": {
+        "model_name": "vit_base_patch14_dinov2.lvd142m",
+        "batch_size": 8,
+        "min_neighbors": 10,
+        "max_neighbors": 18,
+        "similarity_threshold": 0.24
+      },
+      "matching": {
+        "base_resize": 960,
+        "max_keypoints": 2048,
+        "detection_threshold": 0.01,
+        "lightglue_filter_threshold": 0.2,
+        "width_confidence": 0.99,
+        "depth_confidence": -1.0,
+        "ransac_reproj_threshold": 4.0,
+        "ransac_confidence": 0.9999,
+        "ransac_max_iters": 20000,
+        "coverage_grid": 4,
+        "strong_min_inliers": 45,
+        "strong_min_ratio": 0.2,
+        "strong_min_coverage": 0.06,
+        "easy_inliers": 90,
+        "easy_ratio": 0.48,
+        "easy_coverage": 0.2,
+        "triangle_borderline_inliers": 30
+      },
+      "rescue": {
+        "enable_tiles": false,
+        "tile_resize": 1024,
+        "full_tile_for_all_valid": false,
+        "tile_trigger_min_inliers": 18,
+        "tile_trigger_max_inliers": 105,
+        "tile_trigger_coverage": 0.3,
+        "high_similarity_threshold": 0.48,
+        "max_rescues_per_image": 0,
+        "enable_rotation": false,
+        "rotation_similarity_threshold": 0.55,
+        "rotation_max_base_inliers": 35,
+        "rotation_stop_inliers": 80,
+        "low_degree_rescue": false,
+        "low_degree_target": 2,
+        "low_degree_extra_pairs": 2
+      },
+      "graph": {
+        "min_component_size": 2,
+        "triangle_support_required_for_borderline": 1,
+        "singleton_as_outlier": true
+      },
+      "colmap": {
+        "camera_model": "SIMPLE_RADIAL",
+        "camera_mode": "PER_IMAGE",
+        "verify_max_error": 4.0,
+        "verify_min_num_inliers": 15,
+        "min_num_matches": 15,
+        "min_model_size": 3,
+        "max_num_models": 25,
+        "max_model_overlap": 20,
+        "init_min_num_inliers": 55,
+        "abs_pose_min_num_inliers": 15,
+        "abs_pose_min_inlier_ratio": 0.2,
+        "num_threads": -1
+      },
+      "runtime": {
+        "device": "cuda",
+        "seed": 2026,
+        "use_amp": true,
+        "keep_intermediate": true
+      }
+    }
+  }
+]

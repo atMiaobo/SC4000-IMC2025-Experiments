@@ -1,0 +1,373 @@
+{
+  "best_version": 7,
+  "best_cameras": 27,
+  "best_ets": 19,
+  "best_stairs": 8,
+  "next_version": 27,
+  "experiments": [
+    {
+      "version": 9,
+      "hypothesis": "GBM+TOPK20: V8 model quality (AUC=0.690) + V7 conservative pairing (TOPK=20). Preserves V7 scene splits while using better pair ranker. Expected: 27/73 public, better hidden.",
+      "status": "regression",
+      "result": {
+        "version": 9,
+        "total_cameras": 25,
+        "ets_cameras": 19,
+        "stairs_cameras": 6,
+        "dataset_errors": 0,
+        "diagnostics_version": 9
+      },
+      "cost_usd": 0.0,
+      "source": "auto_loop"
+    },
+    {
+      "version": 10,
+      "hypothesis": "GBM+TOPK25: midpoint grid search between V7 (TOPK=20, 27/73) and V8 (TOPK=30, 22/73). Tests whether TOPK=25 improves hidden dataset coverage without triggering stairs over-merge.",
+      "status": "regression",
+      "result": {
+        "version": 10,
+        "total_cameras": 22,
+        "ets_cameras": 19,
+        "stairs_cameras": 3,
+        "dataset_errors": 0,
+        "diagnostics_version": 10
+      },
+      "cost_usd": 0.0,
+      "source": "auto_loop"
+    },
+    {
+      "version": 11,
+      "hypothesis": "Lower Lowe threshold (30 vs 40) for exhaustive-path datasets (N<=40). ETs has 2 outlier images with 30-39 matches; lowering threshold may connect them to scene_0 for COLMAP registration.",
+      "status": "regression",
+      "result": {
+        "version": 11,
+        "total_cameras": 16,
+        "ets_cameras": 10,
+        "stairs_cameras": 6,
+        "dataset_errors": 0,
+        "diagnostics_version": 11
+      },
+      "cost_usd": 0.0,
+      "source": "auto_loop"
+    },
+    {
+      "version": 12,
+      "hypothesis": "V12 Hypothesis: Video-aware temporal pair augmentation for scene clustering.\n\nIn V9 (GBM+TOPK=20), 14 of 51 stairs images end up in \"outliers\" with 0 cameras\nregistered. Stairs is a video sequence (N=51 > MAX_EXHAUSTIVE_N=40), so LGEU pair\nselection is used instead of exhaustive SIFT. LGEU scores pairs by global descriptor\nsimilarity and selects the top-20 neighbors per image; however, for a simultaneous\ndual-camera video recording with overlapping timestamps, the LGEU model may misjudge\nvisual similarity and fail to select the temporally adjacent frames that provide the\nstrongest geometric overlap. When a frame's key neighbors are not among the LGEU-selected\npairs, that frame gets no valid SIFT edges and is stranded as an outlier \u2014 preventing\nCOLMAP from registering it. V12 supplements the LGEU-selected pairs with mandatory\nsequential temporal neighbor pairs (\u00b12 frames sorted by embedded filename timestamp) for\nall video sequences (>=70% of filenames contain a 10-13 digit timestamp). This guarantees\neach frame connects to its 1-2 nearest temporal neighbors before SIFT matching, regardless\nof LGEU ranking. The extra pairs add at most 2*(N-1) additional SIFT comparisons (~88 for\nstairs), a modest cost. We expect fewer outlier images for stairs (and potentially other\nvideo hidden datasets) and a net increase in registered cameras over V9 without regressing\nETs or non-video datasets (which are unaffected by the new logic).",
+      "status": "regression",
+      "result": {
+        "version": 12,
+        "total_cameras": 23,
+        "ets_cameras": 19,
+        "stairs_cameras": 4,
+        "dataset_errors": 0,
+        "diagnostics_version": 12
+      },
+      "cost_usd": 1.821394,
+      "start_time": "2026-10-14T20:43:06.395449+00:00",
+      "source": "research_supervisor",
+      "end_time": "2026-10-14T20:56:47.241576+00:00"
+    },
+    {
+      "version": 13,
+      "hypothesis": "V13 Hypothesis: The LGEU GBM model's num_gap feature is the root cause of poor pair\nselection for video sequences like stairs. num_gap is computed as the minimum absolute\nnumeric difference between filename tokens divided by 1000; for 13-digit millisecond\nUnix timestamps, two frames ~600 ms apart (typical at ~1.6 fps effective rate for 51\nframes over ~30 s) produce num_gap \u2248 0.6. The GBM model associates high num_gap values\nwith cross-scene pairs (since same-scene non-video pairs often have small sequential\nnumeric indices), so it ranks these temporally distant video frame pairs with low\nsame-scene probability and excludes them from the TOPK=20 selection. This leaves\nmany video frames with no valid SIFT neighbors and strands them as outliers with zero\ncameras registered \u2014 the failure mode observed in V9 (14 stairs outliers, 6/51 total).\nV12 tried to patch this with temporal augmentation, but hurt scores (4/51) because\nstairs has two simultaneous cameras whose timestamps interleave: adding \u00b12 sequential\ntemporal neighbors connects frames across camera streams, creating erroneous cross-stream\nedges that collapse the two sub-scenes into one unresolvable cluster. V13 instead bypasses\nthe LGEU model entirely for video sequences and ranks pairs by raw cosine similarity of\nglobal descriptors (top-20 per image). Cosine similarity captures visual appearance\ndirectly without the timestamp artifact, is the natural distance metric the global\ndescriptor was trained under, and is robust to the dual-camera interleaved-timestamp\nstructure because it scores pairs by what they look like, not when they were captured.\nNon-video datasets (ETs and all hidden structured-capture datasets) are unaffected and\nuse the standard V9 GBM+TOPK=20 path. We expect fewer outlier images for stairs and\na net increase in registered cameras over V9 (25/73) without regressing ETs (19/22).",
+      "status": "smoke_error",
+      "result": null,
+      "cost_usd": 1.61443465,
+      "start_time": "2026-10-14T20:57:17.873233+00:00",
+      "source": "research_supervisor"
+    },
+    {
+      "version": 14,
+      "hypothesis": "V14 Hypothesis: For video sequences (N > 40, \u226570% timestamp filenames), the GBM LGEU model's\nnum_gap feature is the root cause of poor pair selection. num_gap is computed as the minimum\nabsolute numeric token difference between two filenames divided by 1000; for 13-digit millisecond\nUnix timestamps, adjacent frames ~600 ms apart yield num_gap \u2248 0.6. The GBM model was trained on\nnon-video datasets where same-scene pairs have small sequential file-index gaps (num_gap \u2248 0) and\ncross-scene pairs have large gaps, so it learned to use high num_gap as a strong cross-scene signal.\nApplied to video, this is a spurious artifact: the model assigns low same-scene probability to\ntemporally adjacent but spatially overlapping frames, causing them to miss the TOPK=20 cut and\nend up as 'outliers' with no SIFT edges and zero cameras registered \u2014 exactly the failure mode\nseen in V9 (14/51 stairs images stranded as outliers). Previous attempts to fix this were:\nV12 (add \u00b12 temporal neighbor pairs), which hurt because stairs has two interleaved camera streams\nwhose cross-stream temporal neighbors are from different viewpoints; and V13 (bypass GBM entirely,\nuse cosine-only ranking), which crashed. V14 takes a more surgical approach: it runs the full GBM\nmodel but zeros out num_gap before scoring for video sequences. This neutralizes the timestamp\nartifact while preserving all six remaining discriminative features \u2014 cosine similarity, mutual\nrank mean, mutual rank max, aspect_diff, area_ratio, and name_jaccard \u2014 which are all valid for\nvideo and can distinguish same-scene from cross-scene pairs by visual appearance alone. Non-video\nand small datasets (N \u2264 40) are unaffected and use standard V9 logic. We expect fewer outlier\nimages for stairs (and any other hidden video datasets), better scene coverage, and a net increase\nin registered cameras over V9 (25/73) without regressing ETs (19/22).",
+      "status": "regression",
+      "result": {
+        "version": 14,
+        "total_cameras": 25,
+        "ets_cameras": 19,
+        "stairs_cameras": 6,
+        "dataset_errors": 0,
+        "diagnostics_version": 14
+      },
+      "cost_usd": 1.2654988,
+      "start_time": "2026-10-14T21:08:37.538140+00:00",
+      "source": "research_supervisor",
+      "end_time": "2026-10-14T21:18:42.688652+00:00"
+    },
+    {
+      "version": 15,
+      "hypothesis": "V15 Hypothesis: In V9 (GBM+TOPK=20), 14 of 51 stairs images are stranded as \"outliers\"\nwith 0 cameras registered. Stairs is a video sequence (N=51 > MAX_EXHAUSTIVE_N=40) with\nforward-facing staircase motion; consecutive frames have limited visual overlap, so many\nvalid same-scene pairs produce only 30-39 Lowe-ratio matches \u2014 just below the standard\nGOOD_MATCH_THRESHOLD of 40. These pairs would survive MAGSAC geometric verification\n(inliers >= MIN_MAGSAC_INLIERS=3, confirming consistent camera geometry), but are blocked\nfrom forming edges purely by the Lowe count cutoff, leaving their images with no valid\ngraph edges and thus stranded as outliers before COLMAP is even invoked. Previous fixes\n(V12 temporal augmentation, V13 cosine-only ranking, V14 num_gap zeroing) all targeted\npair selection quality but left the threshold at 40, so the core cutoff problem remained.\nV15 lowers good_match_threshold from 40 to 30 specifically for video sequences (N >\nMAX_EXHAUSTIVE_N, >=70% timestamp filenames), where LGEU pair pre-selection (TOPK=20)\nalready limits the candidate set to the most visually similar pairs, making cross-scene\nfalse positives unlikely, and MAGSAC (MIN_MAGSAC_INLIERS=3) provides a final geometric\nguard. Non-video and small datasets use the unchanged V9 logic (threshold=40, TOPK=20).\nWe expect fewer outlier images for stairs (and any hidden video datasets), more registered\ncameras overall, and no regression in ETs or non-video datasets.",
+      "status": "regression",
+      "result": {
+        "version": 15,
+        "total_cameras": 26,
+        "ets_cameras": 19,
+        "stairs_cameras": 7,
+        "dataset_errors": 0,
+        "diagnostics_version": 15
+      },
+      "cost_usd": 1.18368115,
+      "start_time": "2026-10-14T21:19:12.725705+00:00",
+      "source": "research_supervisor",
+      "end_time": "2026-10-14T21:28:39.853459+00:00"
+    },
+    {
+      "version": 16,
+      "hypothesis": "V16 Hypothesis: V14 and V15 each targeted a distinct bottleneck for video sequences like\nstairs but never in combination. V14 zeroed the GBM model's num_gap feature before scoring\n(neutralising the timestamp artifact that causes the model to treat temporally-adjacent\nsame-scene frames as cross-scene), but kept good_match_threshold=40 \u2014 result: 6/51 stairs,\nidentical to V9, because the improved pair selection still blocked weak-overlap edges. V15\nlowered good_match_threshold to 30 for video sequences (admitting pairs with 30\u201339 Lowe\nmatches that pass MAGSAC geometric verification), but left num_gap active \u2014 result: 7/51\nstairs, a marginal gain, because the biased GBM model still ranked some valid pairs below\nthe TOPK=20 cut. V16 combines both changes simultaneously for video sequences (N >\nMAX_EXHAUSTIVE_N, >=70% timestamp filenames): the GBM model scores all pairs with num_gap\nforced to 0.0, producing a ranking driven purely by visual similarity (cosine, mutual rank,\naspect, area ratio, name overlap), and edges are admitted at a Lowe count of 30 rather than\n40, with MAGSAC (MIN_MAGSAC_INLIERS=3) and LGEU TOPK=20 still guarding against cross-scene\nmerging. Because these two fixes are orthogonal \u2014 one improves WHICH pairs are selected, the\nother lowers the bar for FORMING edges among selected pairs \u2014 their combination should reduce\nboth the number of outlier images and the number of frames that are correctly clustered but\nfail to form valid SIFT edges, yielding a net increase in registered stairs cameras over\nV15 (7/51) without regressing ETs or non-video hidden datasets (which are unaffected by\nthe video-path changes).",
+      "status": "regression",
+      "result": {
+        "version": 16,
+        "total_cameras": 26,
+        "ets_cameras": 19,
+        "stairs_cameras": 7,
+        "dataset_errors": 0,
+        "diagnostics_version": 16
+      },
+      "cost_usd": 1.5813451499999998,
+      "start_time": "2026-10-14T21:29:09.885486+00:00",
+      "source": "research_supervisor",
+      "end_time": "2026-10-14T21:39:31.809463+00:00"
+    },
+    {
+      "version": 17,
+      "hypothesis": "V17 Hypothesis: In V16 (GBM num_gap=0 + Lowe threshold=30 for video, result: 7/51 stairs), 14\nstairs images are still stranded as 'outliers' with zero valid SIFT edges \u2014 meaning every one of\ntheir TOPK=20 GBM-selected neighbors produces fewer than 30 Lowe matches. The untried bottleneck\nis SIFT feature density. The default _extract_sift call uses nfeatures=4000, distributing\nkeypoints across the entire image by maximal-response selection. For forward-facing staircase video\nwith small inter-frame overlap, the region of geometric overlap between adjacent frames covers only\na fraction of each image's area; with 4000 features spread globally, that boundary region may\ncontain too few keypoints to accumulate 30+ FLANN candidate matches with any neighbor. V17 doubles\nnfeatures to 8000 for video-path SIFT extraction (N > MAX_EXHAUSTIVE_N, >=70% timestamp filenames),\nspreading keypoint coverage more densely across each frame so the overlapping boundary regions are\nmore likely to be sampled. More keypoints per image \u2192 more candidate FLANN matches per pair \u2192\nhigher Lowe-ratio match counts for pairs that share small but real geometric overlap. Combined with\nV16's GBM scoring (num_gap=0) and Lowe threshold=30, this should help at least some of the 14\noutlier images accumulate enough matches to form a valid SIFT edge and enter COLMAP reconstruction.\nNon-video and small datasets use the unchanged V9 path (nfeatures=4000, full GBM with num_gap\nactive, threshold=40, TOPK=20), so ETs and hidden structured-capture datasets are unaffected.",
+      "status": "upload_failed",
+      "result": null,
+      "cost_usd": 1.7980482500000001,
+      "start_time": "2026-10-14T21:40:01.844137+00:00",
+      "source": "research_supervisor"
+    },
+    {
+      "version": 18,
+      "hypothesis": "V18 Hypothesis: All V12-V17 experiments targeted scene clustering (pair selection quality,\nLowe match thresholds, SIFT feature density) but left the SfM step unchanged from V7.\nIn the V9 per-scene diagnostics, even correctly-clustered stairs scenes \u2014 scene_0 (15\nimages, video) and scene_2 (20 images, video) \u2014 register only 3 cameras each via COLMAP.\nThis reveals a separate, untouched bottleneck: the COLMAP incremental mapper settings in\nrun_sfm_v7. For forward-facing staircase video, the initial 3D model is built from just\ntwo seed frames with a small baseline, yielding a sparse point cloud. As the mapper\nattempts to extend the reconstruction to adjacent frames, those frames often have fewer\nthan 4 3D-point correspondences with the existing model \u2014 the current threshold\n(abs_pose_min_num_inliers=4). Additionally, the seed-pair triangulation angle requirement\n(init_min_tri_angle=1.0 degrees) is too strict for nearly-forward camera motion, causing\ninitialization to fail or choose a sub-optimal seed pair. V18 relaxes three COLMAP mapper\nthresholds for video scenes only: init_min_num_inliers from 5 to 3, init_min_tri_angle\nfrom 1.0 to 0.5 degrees, and abs_pose_min_num_inliers from 4 to 3 (the P3P minimum).\nThese changes allow the mapper to register cameras that have sparse-but-real geometric\noverlap with the existing reconstruction, directly addressing why only 3/15 and 3/20\ncameras are recovered in correctly-clustered stairs scenes. Scene clustering inherits\nV16's improvements (num_gap=0 + Lowe threshold=30 for video). Non-video scenes retain\nthe original V7 SfM settings unchanged, so ETs and hidden structured-capture datasets\nare not affected.",
+      "status": "upload_failed",
+      "result": null,
+      "cost_usd": 1.0737739,
+      "start_time": "2026-10-14T21:50:01.707638+00:00",
+      "source": "research_supervisor"
+    },
+    {
+      "version": 19,
+      "hypothesis": "V19 Hypothesis: In V16 (GBM num_gap=0 + Lowe threshold=30 for video, result: 7/51 stairs), 14\nstairs images remain stranded as 'outliers' with zero valid SIFT edges \u2014 every one of their\ntop-20 GBM-selected neighbors produces fewer than 30 Lowe-ratio matches even with the lowered\nthreshold and corrected pair selection. All prior versions V1-V18 share a fixed FLANN Lowe ratio\nof 0.75: a candidate match (m, n) is admitted only if m.distance < 0.75 * n.distance. For video\nsequences with repetitive staircase textures and small inter-frame overlap, many true\ncorrespondences fall in the 0.75-0.80 range \u2014 the nearest descriptor is a correct match, but the\nsecond-nearest is nearly as close because staircase step edges repeat across the image at multiple\nscales. This causes valid correspondences to be rejected, artificially depressing Lowe match counts\nand preventing outlier images from accumulating the 30+ matches needed to form any valid edge. V19\nloosens the FLANN Lowe ratio from 0.75 to 0.80 specifically for video sequence pair matching (N >\nMAX_EXHAUSTIVE_N, >=70% timestamp filenames). MAGSAC geometric verification (MIN_MAGSAC_INLIERS=3)\nprovides the final filter against false positives admitted by the looser ratio \u2014 a cross-scene pair\nwith many incidental Lowe matches at ratio=0.80 will still fail the geometric consistency check. V19\nalso incorporates V18's relaxed COLMAP mapper thresholds for video scenes (init_min_num_inliers 5\u21923,\ninit_min_tri_angle 1.0\u21920.5 degrees, abs_pose_min_num_inliers 4\u21923), which was previously\nupload_failed and thus unscored on the leaderboard. Combined with V16's pair selection (num_gap=0,\nTOPK=20) and edge threshold=30, loosening the ratio should help at least some of the 14 outlier\nstairs images accumulate enough matches to form a valid SIFT edge and enter COLMAP reconstruction,\nwhile the relaxed mapper settings should improve registration within correctly-clustered scenes.\nNon-video and small datasets (N <= MAX_EXHAUSTIVE_N) use standard V9 logic throughout, so ETs and\nhidden structured-capture datasets are unaffected.",
+      "status": "upload_failed",
+      "result": null,
+      "cost_usd": 2.5328470499999995,
+      "start_time": "2026-10-14T21:56:35.943640+00:00",
+      "source": "research_supervisor"
+    },
+    {
+      "version": 20,
+      "hypothesis": "V20 Hypothesis: Versions V14-V19 all tried to rescue the 14 outlier stairs images\nby forcing SIFT edges at the Python level \u2014 through GBM num_gap neutralisation (V14),\nlower Lowe-match thresholds (V15/V16), looser Lowe ratios (V19), and increased SIFT\nfeature density (V17). None succeeded: these 14 images cannot accumulate even 30 Lowe\nmatches with any of their top-20 GBM-selected neighbours under any tested parametrisation.\nThe SIFT edge gate is simply impassable for them. V20 abandons the SIFT-edge rescue\napproach entirely and instead uses post-clustering outlier reassignment: after V16\nclustering (GBM num_gap=0 + Lowe threshold=30) assigns images to scenes or \"outliers\",\neach outlier is reassigned to the scene of its most visually similar non-outlier image\nby cosine similarity of precomputed global descriptors. These outlier images are then\npassed to COLMAP as members of their reassigned scene (scene_0 or scene_2). COLMAP\nruns exhaustive matching on the enlarged scene using its own internal SIFT pipeline \u2014\nwithout the 30-match Python threshold \u2014 giving the outlier images a genuine second\nchance at registration. If the outlier images share even sparse geometric overlap with\ntheir reassigned scene neighbours, COLMAP's bundle adjustment can register them. Worst\ncase, they fail to register and receive identity poses, which is no worse than their\ncurrent status. SfM uses the proven V7 path (exhaustive for N<=100 video) to avoid\nthe upload failures seen in V18/V19. Non-video and small datasets (N<=40) are fully\nunaffected and use standard V9 logic throughout.",
+      "status": "regression",
+      "result": {
+        "version": 20,
+        "total_cameras": 24,
+        "ets_cameras": 19,
+        "stairs_cameras": 5,
+        "dataset_errors": 0,
+        "diagnostics_version": 20
+      },
+      "cost_usd": 1.9787938999999999,
+      "start_time": "2026-10-14T22:06:40.816765+00:00",
+      "source": "research_supervisor",
+      "end_time": "2026-10-14T22:18:29.439365+00:00"
+    },
+    {
+      "version": 21,
+      "hypothesis": "V21 Hypothesis: Versions V7-V20 (excluding the upload_failed V18/V19) use\nabs_pose_min_num_inliers=4 in COLMAP's incremental mapper for video scenes. For\nforward-facing staircase video, COLMAP initializes from a seed pair and attempts to\nextend the reconstruction frame by frame. Consecutive staircase frames have limited\nvisual overlap (small inter-frame baseline) and the resulting sparse 3D point cloud\ncontains very few points visible in any single adjacent frame \u2014 often exactly 3, the\ntheoretical P3P minimum. With the threshold at 4, COLMAP rejects these frames as\nunregisterable, which explains why scene_0 (15 images) and scene_2 (20 images) both\nplateau at only 3 cameras each in V9 diagnostics despite having real geometric overlap.\nV21 lowers abs_pose_min_num_inliers from 4 to 3 (the P3P minimum) for video scenes\nonly, allowing cameras with sparse-but-real 3D correspondences to be registered. V18\nchanged three mapper parameters simultaneously (init_min_num_inliers, init_min_tri_angle,\nabs_pose_min_num_inliers) and upload_failed; V21 isolates only abs_pose_min_num_inliers\nto cleanly attribute any effect and reduce the risk of API-level failures. Scene\nclustering uses V16 (GBM num_gap=0 + Lowe threshold=30 for video), the best-scoring\nclustering configuration (7/51 stairs, 19/22 ETs). Non-video scenes and small datasets\n(N<=40) retain V7's original settings (abs_pose_min_num_inliers=8) unchanged, protecting\nETs and hidden structured-capture datasets from regression. Expected improvement: 2-4\nadditional stairs cameras registered within scene_0 and scene_2, potentially exceeding\nV7's best of 8/51 stairs cameras.",
+      "status": "tied",
+      "result": {
+        "version": 21,
+        "total_cameras": 27,
+        "ets_cameras": 19,
+        "stairs_cameras": 8,
+        "dataset_errors": 0,
+        "diagnostics_version": 21
+      },
+      "cost_usd": 2.0821996499999993,
+      "start_time": "2026-10-14T22:18:59.479676+00:00",
+      "source": "research_supervisor",
+      "end_time": "2026-10-14T22:36:05.332031+00:00"
+    },
+    {
+      "version": 22,
+      "hypothesis": "V22 Hypothesis: V21 lowered abs_pose_min_num_inliers from 4 to 3 (the theoretical P3P\nminimum) for video scenes and tied V7 at 8/51 stairs cameras registered. The remaining\nuntried COLMAP mapper parameter from V18 \u2014 which changed three parameters simultaneously\nand upload_failed \u2014 is init_min_tri_angle. V21 preserves the V7 video default of 1.0\ndegrees for this parameter. For a forward-facing staircase recording, consecutive frames\nshare a narrow field of view and nearly-parallel optical axes; the true geometric baseline\nbetween adjacent frames is small, so the triangulation angle of any candidate seed pair\noften falls below 1.0 degrees. When COLMAP's incremental mapper evaluates seed pairs for\ninitialisation, it rejects those whose triangulation angle is below init_min_tri_angle,\nforcing it to select a geometrically inferior seed pair \u2014 one with a wider apparent angle\nbut weaker photometric overlap. Starting from a poor seed pair produces a sparse initial\n3D point cloud, which in turn limits how many subsequent frames can accumulate the three\ninlier correspondences required for registration (even with abs_pose_min_num_inliers=3).\nV22 lowers init_min_tri_angle from 1.0 to 0.5 degrees for video scenes only, allowing\nCOLMAP to select the geometrically best available seed pair. A better seed pair yields a\ndenser initial point cloud, which increases the likelihood that adjacent frames find three\nor more inlier correspondences and can be registered. Combined with V21's\nabs_pose_min_num_inliers=3, this targets the seed-initialisation bottleneck that V21 alone\ncould not address. Non-video scenes and small datasets (N <= MAX_EXHAUSTIVE_N) retain V7\nsettings unchanged, so ETs and hidden structured-capture datasets are unaffected.",
+      "status": "regression",
+      "result": {
+        "version": 22,
+        "total_cameras": 26,
+        "ets_cameras": 19,
+        "stairs_cameras": 7,
+        "dataset_errors": 0,
+        "diagnostics_version": 22
+      },
+      "cost_usd": 1.1338963999999998,
+      "start_time": "2026-10-14T22:36:35.376233+00:00",
+      "source": "research_supervisor",
+      "end_time": "2026-10-14T22:46:54.661509+00:00"
+    },
+    {
+      "version": 23,
+      "hypothesis": "V23 Hypothesis: Use pycolmap.CameraMode.SINGLE instead of CameraMode.AUTO for video scenes in COLMAP feature extraction.\n\nAll prior versions V7\u2013V22 call pycolmap.extract_features(..., camera_mode=pycolmap.CameraMode.AUTO), which assigns an independent camera model (SIMPLE_RADIAL by default) to every individual image. For forward-facing staircase video, all frames come from the same physical camera with a fixed focal length and principal point that do not change between frames. Under AUTO mode, COLMAP must estimate intrinsics separately for each image from the matches available at that point in the incremental reconstruction; for scenes of only 15\u201320 images with a sparse initial point cloud, these per-image estimates are poorly constrained and inconsistent across frames, producing depth ambiguities that reduce the number of well-triangulated 3D points visible in each candidate frame. V21 improved registration by lowering abs_pose_min_num_inliers from 4 to 3 (P3P minimum), allowing frames with only 3 matching 3D points to register; V22 added init_min_tri_angle=0.5 degrees and regressed (8\u21927 stairs cameras), so V23 reverts to V21's init_min_tri_angle=1.0. The new change is CameraMode.SINGLE: COLMAP shares one camera model across all images in the scene and jointly optimises its intrinsics during every bundle adjustment round. Joint optimisation across 15\u201320 frames provides far more constraints on focal length and principal point than any single seed pair, yielding a more accurately calibrated camera model and geometrically tighter 3D point positions. Tighter 3D points increase the fraction of adjacent frames that can accumulate the 3 inlier correspondences required for registration, directly attacking the bottleneck (scene_0: 3\u20135/15, scene_2: 3/20 registered cameras) that has limited stairs performance in all previous versions. Non-video scenes retain CameraMode.AUTO and V7 mapper settings, preserving ETs and hidden structured-capture dataset performance.",
+      "status": "smoke_error",
+      "result": null,
+      "cost_usd": 1.2471526500000003,
+      "start_time": "2026-10-14T22:47:24.713860+00:00",
+      "source": "research_supervisor"
+    },
+    {
+      "version": 24,
+      "hypothesis": "V24 Hypothesis: Isolate init_min_num_inliers reduction (5->3) combined with V21's\nabs_pose_min_num_inliers=3 for video scenes, without touching init_min_tri_angle.\n\nV18 changed three COLMAP mapper parameters simultaneously for video scenes \u2014\ninit_min_num_inliers (5->3), init_min_tri_angle (1.0->0.5 degrees), and\nabs_pose_min_num_inliers (4->3) \u2014 and upload_failed, leaving all three parameters\nuntested as individual contributions. V21 isolated abs_pose_min_num_inliers (4->3) alone\nand tied V7 at 8/51 stairs cameras (27/73 total). V22 isolated init_min_tri_angle (1.0->0.5\ndegrees) on top of V21's abs_pose=3 and regressed to 7/51 stairs cameras (26/73).\nThe third parameter from V18's bundle \u2014 init_min_num_inliers \u2014 has never been tested\nin isolation. This parameter controls the minimum number of inliers required for a seed\npair to be accepted during COLMAP initialization. V7 sets it to 5 for video scenes; for\nstaircase video with nearly-parallel optical axes and a shallow scene extent, even the\ngeometrically best available seed pair may produce only 3\u20135 verified fundamental matrix\ninliers (the COLMAP sparse exhaustive matching still runs, but the H/F verification step\nyields few geometric inliers when both cameras nearly share a focus). With\ninit_min_num_inliers=5, COLMAP silently discards these seed-pair candidates and either\nselects a geometrically worse seed pair \u2014 producing a poor initial 3D point cloud \u2014 or\nfails to initialize entirely, explaining why scene_0 (15 images) and scene_2 (20 images)\nsometimes plateau at only 3 registered cameras even with abs_pose_min_num_inliers=3.\nV24 reduces init_min_num_inliers from 5 to 3 (matching the P3P minimum), combined with\nV21's abs_pose_min_num_inliers=3, while explicitly keeping init_min_tri_angle at 1.0\ndegrees (V22 showed that lowering it causes regression). Scene clustering inherits V16\n(GBM num_gap=0 + Lowe threshold=30 for video, best proven configuration). Non-video and\nsmall datasets (N<=40) retain V7 settings (init_min_num_inliers=10, abs_pose=8),\nprotecting ETs and hidden structured-capture datasets from regression. Expected outcome:\nallowing COLMAP to initialize from seed pairs with 3\u20134 geometric inliers should yield a\nmore accurately positioned initial 3D point cloud, enabling more adjacent staircase frames\nto find the 3 inlier correspondences required by abs_pose_min_num_inliers=3, potentially\nrecovering additional cameras beyond V21's 8/51 stairs result.",
+      "status": "smoke_error",
+      "result": null,
+      "cost_usd": 2.04919625,
+      "start_time": "2026-10-14T22:57:33.857063+00:00",
+      "source": "research_supervisor"
+    },
+    {
+      "version": 25,
+      "hypothesis": "V25 Hypothesis: All prior versions V7\u2013V24 call pycolmap.incremental_mapping() and then\ntake ONLY the largest sub-reconstruction with:\n    best_rec = max(reconstructions.values(), key=lambda r: r.num_reg_images())\nThis silently discards every smaller sub-reconstruction that COLMAP produced. For the\nstairs dataset, two physically separate camera rigs record simultaneously from different\npositions. COLMAP's incremental mapper naturally produces multiple disjoint\nsub-reconstructions \u2014 one per rig cluster \u2014 because the two rigs share no geometric\noverlap and cannot be merged into a single model. The V9 diagnostics confirm this\nstructure: scene_0 (15 images, 3 cameras registered in V9) and scene_2 (20 images,\n3 cameras) are two separate video scenes; V21 (the current best at 8/51) reaches 8\ncameras by lowering abs_pose_min_num_inliers to 3. However, even within each scene,\nCOLMAP likely produces additional smaller sub-reconstructions (e.g., two isolated\ntemporal clusters within scene_0's 15 images that could not be bridged) that are\ncurrently discarded. V25 merges poses from ALL sub-reconstructions returned by\nincremental_mapping, sorting by descending registration count so that for any image\nappearing in multiple sub-reconstructions, the pose from the largest (most globally\nconstrained) reconstruction wins. This approach does not change any matching or mapper\nthreshold \u2014 it simply recovers cameras that COLMAP correctly reconstructed but that\nwere being silently dropped. Scene clustering is unchanged from V21/V16 (GBM num_gap=0\n+ Lowe threshold=30 for video, TOPK=20). Mapper settings are identical to V21\n(abs_pose_min_num_inliers=3 for video, init_min_tri_angle=1.0, init_min_num_inliers=5).\nNon-video and small datasets (N<=40) are fully unaffected \u2014 their exhaustive path\ntypically produces a single reconstruction, so merging all reconstructions is a no-op.\nExpected outcome: if COLMAP produces 2+ sub-reconstructions per video scene (a plausible\nscenario for dual-rig staircase recording), V25 could recover the cameras from secondary\nsub-reconstructions, potentially exceeding V21's 8/51 stairs result.",
+      "status": "tied",
+      "result": {
+        "version": 25,
+        "total_cameras": 27,
+        "ets_cameras": 19,
+        "stairs_cameras": 8,
+        "dataset_errors": 0,
+        "diagnostics_version": 25
+      },
+      "cost_usd": 2.1715805999999995,
+      "start_time": "2026-10-14T23:07:09.473953+00:00",
+      "source": "research_supervisor",
+      "end_time": "2026-10-14T23:19:22.632152+00:00"
+    },
+    {
+      "version": 26,
+      "hypothesis": "V26 Hypothesis: Combine V25's merge-all-sub-reconstructions with V24's init_min_num_inliers=3 for video scenes. All prior versions V7\u2013V25 use init_min_num_inliers=5 for video, meaning COLMAP requires at least 5 verified F-matrix inliers before accepting a seed pair for initialization. For staircase video with nearly-parallel optical axes, the geometrically best available seed pair often produces only 3\u20135 F-matrix inliers, causing COLMAP to reject it and either fall back to a geometrically worse alternative or fail initialization entirely. This explains why scene_0 (15 images) and scene_2 (20 images) plateau at 5 and 3 registered cameras respectively despite V21's abs_pose_min_num_inliers=3 lowering the per-frame localization threshold. V25 attempted to recover additional cameras by merging all COLMAP sub-reconstructions rather than taking only the largest, but tied V7 at 8/51 stairs cameras \u2014 indicating that COLMAP produces only one sub-reconstruction per scene under the current seed-pair selection rules, leaving the merge-all strategy nothing extra to collect. V24 tested init_min_num_inliers=3 independently but smoke_errored before the SfM step ran, leaving the combination with V25 untested. V26 lowers init_min_num_inliers from 5 to 3 (the P3P minimum) for video scenes: with a lower inlier floor, COLMAP accepts more seed pair candidates, increasing the probability of a successful initialization and potentially enabling the mapper to produce additional sub-reconstructions from image clusters that the floor-5 threshold currently rejects \u2014 sub-reconstructions that V26's merge-all strategy can then capture. init_min_tri_angle remains at 1.0 degrees (V22 demonstrated that 0.5 causes regression). Non-video and small datasets retain V7 settings unchanged, protecting ETs and hidden structured-capture datasets from regression.",
+      "status": "smoke_error",
+      "result": null,
+      "cost_usd": 1.81185025,
+      "start_time": "2026-10-14T23:19:52.684026+00:00",
+      "source": "research_supervisor"
+    }
+  ],
+  "leaderboard": [
+    {
+      "version": 7,
+      "ets": 19,
+      "stairs": 8,
+      "total": 27,
+      "note": "V7 BEST (LR+TOPK20)"
+    },
+    {
+      "version": 21,
+      "ets": 19,
+      "stairs": 8,
+      "total": 27,
+      "note": "research-supervisor v21"
+    },
+    {
+      "version": 25,
+      "ets": 19,
+      "stairs": 8,
+      "total": 27,
+      "note": "research-supervisor v25"
+    },
+    {
+      "version": 15,
+      "ets": 19,
+      "stairs": 7,
+      "total": 26,
+      "note": "research-supervisor v15"
+    },
+    {
+      "version": 16,
+      "ets": 19,
+      "stairs": 7,
+      "total": 26,
+      "note": "research-supervisor v16"
+    },
+    {
+      "version": 22,
+      "ets": 19,
+      "stairs": 7,
+      "total": 26,
+      "note": "research-supervisor v22"
+    },
+    {
+      "version": 9,
+      "ets": 19,
+      "stairs": 6,
+      "total": 25,
+      "note": "V9 GBM+TOPK20"
+    },
+    {
+      "version": 14,
+      "ets": 19,
+      "stairs": 6,
+      "total": 25,
+      "note": "research-supervisor v14"
+    },
+    {
+      "version": 20,
+      "ets": 19,
+      "stairs": 5,
+      "total": 24,
+      "note": "research-supervisor v20"
+    },
+    {
+      "version": 12,
+      "ets": 19,
+      "stairs": 4,
+      "total": 23,
+      "note": "research-supervisor v12"
+    },
+    {
+      "version": 5,
+      "ets": 19,
+      "stairs": 3,
+      "total": 22,
+      "note": "V5 LGEU+MAGSAC"
+    },
+    {
+      "version": 8,
+      "ets": 19,
+      "stairs": 3,
+      "total": 22,
+      "note": "V8 GBM+TOPK30 regression"
+    },
+    {
+      "version": 10,
+      "ets": 19,
+      "stairs": 3,
+      "total": 22,
+      "note": "V10 GBM+TOPK25"
+    },
+    {
+      "version": 4,
+      "ets": 19,
+      "stairs": 2,
+      "total": 21,
+      "note": "V4 baseline"
+    },
+    {
+      "version": 6,
+      "ets": 19,
+      "stairs": 0,
+      "total": 19,
+      "note": "V6 crash-isolation"
+    },
+    {
+      "version": 11,
+      "ets": 10,
+      "stairs": 6,
+      "total": 16,
+      "note": "V11 lower-Lowe-thr regression"
+    }
+  ],
+  "budget": {
+    "spent_usd": 25.345692649999997,
+    "limit_usd": 25.0,
+    "invocations": 16
+  },
+  "consecutive_failures": 1
+}

@@ -1,0 +1,22 @@
+V19 Hypothesis: In V16 (GBM num_gap=0 + Lowe threshold=30 for video, result: 7/51 stairs), 14
+stairs images remain stranded as 'outliers' with zero valid SIFT edges — every one of their
+top-20 GBM-selected neighbors produces fewer than 30 Lowe-ratio matches even with the lowered
+threshold and corrected pair selection. All prior versions V1-V18 share a fixed FLANN Lowe ratio
+of 0.75: a candidate match (m, n) is admitted only if m.distance < 0.75 * n.distance. For video
+sequences with repetitive staircase textures and small inter-frame overlap, many true
+correspondences fall in the 0.75-0.80 range — the nearest descriptor is a correct match, but the
+second-nearest is nearly as close because staircase step edges repeat across the image at multiple
+scales. This causes valid correspondences to be rejected, artificially depressing Lowe match counts
+and preventing outlier images from accumulating the 30+ matches needed to form any valid edge. V19
+loosens the FLANN Lowe ratio from 0.75 to 0.80 specifically for video sequence pair matching (N >
+MAX_EXHAUSTIVE_N, >=70% timestamp filenames). MAGSAC geometric verification (MIN_MAGSAC_INLIERS=3)
+provides the final filter against false positives admitted by the looser ratio — a cross-scene pair
+with many incidental Lowe matches at ratio=0.80 will still fail the geometric consistency check. V19
+also incorporates V18's relaxed COLMAP mapper thresholds for video scenes (init_min_num_inliers 5→3,
+init_min_tri_angle 1.0→0.5 degrees, abs_pose_min_num_inliers 4→3), which was previously
+upload_failed and thus unscored on the leaderboard. Combined with V16's pair selection (num_gap=0,
+TOPK=20) and edge threshold=30, loosening the ratio should help at least some of the 14 outlier
+stairs images accumulate enough matches to form a valid SIFT edge and enter COLMAP reconstruction,
+while the relaxed mapper settings should improve registration within correctly-clustered scenes.
+Non-video and small datasets (N <= MAX_EXHAUSTIVE_N) use standard V9 logic throughout, so ETs and
+hidden structured-capture datasets are unaffected.

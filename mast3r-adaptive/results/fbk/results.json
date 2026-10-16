@@ -1,0 +1,40 @@
+[
+  {
+    "mode": "baseline",
+    "mean_score": 23.656818420775945,
+    "mean_mAA": 16.071428571428573,
+    "mean_clusterness": 44.80286738351255,
+    "per_dataset": {
+      "fbk_vineyard": {
+        "score": 23.656818420775945,
+        "mAA": 16.071428571428573,
+        "clusterness": 44.80286738351255,
+        "num_images": 163,
+        "matched": 2288,
+        "accepted": 1833,
+        "rescued": 0,
+        "registered": 162,
+        "elapsed_s": 730.1248662471771
+      }
+    }
+  },
+  {
+    "mode": "adaptive",
+    "mean_score": 16.58653846153846,
+    "mean_mAA": 9.090909090909092,
+    "mean_clusterness": 94.52054794520548,
+    "per_dataset": {
+      "fbk_vineyard": {
+        "score": 16.58653846153846,
+        "mAA": 9.090909090909092,
+        "clusterness": 94.52054794520548,
+        "num_images": 163,
+        "matched": 716,
+        "accepted": 607,
+        "rescued": 4,
+        "registered": 62,
+        "elapsed_s": 108.87997150421143
+      }
+    }
+  }
+]

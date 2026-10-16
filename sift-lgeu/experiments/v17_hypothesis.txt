@@ -1,0 +1,16 @@
+V17 Hypothesis: In V16 (GBM num_gap=0 + Lowe threshold=30 for video, result: 7/51 stairs), 14
+stairs images are still stranded as 'outliers' with zero valid SIFT edges — meaning every one of
+their TOPK=20 GBM-selected neighbors produces fewer than 30 Lowe matches. The untried bottleneck
+is SIFT feature density. The default _extract_sift call uses nfeatures=4000, distributing
+keypoints across the entire image by maximal-response selection. For forward-facing staircase video
+with small inter-frame overlap, the region of geometric overlap between adjacent frames covers only
+a fraction of each image's area; with 4000 features spread globally, that boundary region may
+contain too few keypoints to accumulate 30+ FLANN candidate matches with any neighbor. V17 doubles
+nfeatures to 8000 for video-path SIFT extraction (N > MAX_EXHAUSTIVE_N, >=70% timestamp filenames),
+spreading keypoint coverage more densely across each frame so the overlapping boundary regions are
+more likely to be sampled. More keypoints per image → more candidate FLANN matches per pair →
+higher Lowe-ratio match counts for pairs that share small but real geometric overlap. Combined with
+V16's GBM scoring (num_gap=0) and Lowe threshold=30, this should help at least some of the 14
+outlier images accumulate enough matches to form a valid SIFT edge and enter COLMAP reconstruction.
+Non-video and small datasets use the unchanged V9 path (nfeatures=4000, full GBM with num_gap
+active, threshold=40, TOPK=20), so ETs and hidden structured-capture datasets are unaffected.

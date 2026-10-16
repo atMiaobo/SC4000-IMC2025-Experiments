@@ -1,0 +1,25 @@
+{
+  "train_pairs": 1687,
+  "valid_pairs": 549,
+  "holdout_scenes": [
+    "ET",
+    "another_ET",
+    "stairs_split_1"
+  ],
+  "positive_rate_train": 0.35328986366330767,
+  "positive_rate_valid": 0.2786885245901639,
+  "roc_auc": 0.6902026803987589,
+  "average_precision": 0.3901149912683797,
+  "brier": 0.22719082513297742,
+  "precision_at_0_5": 0.45185185185185184,
+  "recall_at_0_5": 0.39869281045751637,
+  "f1_at_0_5": 0.4236111111111111,
+  "available_train_images": 127,
+  "available_datasets": [
+    "ETs",
+    "imc2023_haiper",
+    "stairs"
+  ],
+  "label_definition": "positive iff same non-outlier train scene and translation distance in [0.05, 5.0]; features are image-only descriptors/name/metadata available before matching",
+  "model_type": "gbm"
+}

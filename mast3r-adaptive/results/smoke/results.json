@@ -1,0 +1,21 @@
+[
+  {
+    "mode": "baseline",
+    "mean_score": 43.699999999999996,
+    "mean_mAA": 44.230769230769226,
+    "mean_clusterness": 43.18181818181818,
+    "per_dataset": {
+      "ETs": {
+        "score": 43.699999999999996,
+        "mAA": 44.230769230769226,
+        "clusterness": 43.18181818181818,
+        "num_images": 22,
+        "matched": 229,
+        "accepted": 201,
+        "rescued": 0,
+        "registered": 22,
+        "elapsed_s": 74.55297040939331
+      }
+    }
+  }
+]

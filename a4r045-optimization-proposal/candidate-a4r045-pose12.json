@@ -1,0 +1,29 @@
+{
+  "id": "a4r045",
+  "label": "A4R045: Top24, angle8, pose12",
+  "parent_candidate": "a4r034",
+  "parent_kernel": "yijisuk/sc4000-a4r034-top24-angle8-pose15",
+  "parent_kernel_version": 1,
+  "parent_submission_ref": 57156705,
+  "parent_notebook_sha256": "2e03c109734cfa177c5d8494c2a7ddbcd7400c24c645f1ce1a28aed2f3b69e53",
+  "parent_private": 42.25,
+  "parent_public": 38.16,
+  "scientific_change": "On scored A4R034, lower ONLY the minimum camera-registration inlier count (options.mapper.abs_pose_min_num_inliers) from 15 to 12; retain Top24 MASt3R retrieval, RDD/ALIKED Top8, eight-degree initialization and all matching and other reconstruction settings.",
+  "overlay_changes": {
+    "scripts/reconstruct_baseline.py": {
+      "original_sha256": "7aef813ba97e9d2d3d830b85430b3eb36e56b6ced44c7fcbfe1409cef4a015b0",
+      "new_sha256": "d2ddd3853aedb1959d02ec5d07e4335cd566f1620d65cc4f404080a46953601f",
+      "line": "options.mapper.abs_pose_min_num_inliers = 12  (was 15)"
+    }
+  },
+  "other_overlays_unchanged": [
+    "submission-generation/iteration4/pair_policy.py",
+    "submission-generation/iteration7-diagnostics/runtime_dual_gpu.py",
+    "submission-generation/iteration7/candidate_protocol.json",
+    "submission-generation/iteration7-diagnostics/amendment_manifest.json"
+  ],
+  "evidence": "abs_pose_min_num_inliers sweep is monotonically positive as it decreases: 30 -> private 37.06 (a4r011), 20 -> 40.37 (a4r024), 15 -> 42.25 (a4r034). Raising to 25 regressed (a4r035, 38.60). Yiji never tested below 15; 12 is the smallest untested continuation of his own winning direction.",
+  "validation": "NOT validated on hidden or locally (Yiji private assets inaccessible to this account; pipeline needs dual-GPU T4). Must be run through Yiji's candidate pipeline (which holds the assets + regenerates the overlay sha chain) and compared against A4R034's 42.25.",
+  "deploy": "Apply a4r045-pose12.patch to scripts/reconstruct_baseline.py, regenerate candidate-manifest overlay_sha256 for that file to d2ddd385..., push as a new kernel vs the three yijisuk asset datasets + image-matching-challenge-2025, run full public notebook, then submit.",
+  "author": "miaobo (optimization + analysis). Base architecture + all assets + A4R001-A4R044 sweep: yijisuk (Yiji)."
+}

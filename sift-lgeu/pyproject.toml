@@ -1,0 +1,19 @@
+[project]
+name = "sc4000-cleanroom-imc2025"
+version = "0.1.0"
+description = "Clean-room Image Matching Challenge 2025 LGEU pipeline"
+requires-python = ">=3.12"
+dependencies = [
+  "joblib",
+  "matplotlib",
+  "numpy",
+  "opencv-python-headless",
+  "pandas",
+  "pillow",
+  "pycolmap>=4.2.1",
+  "scikit-learn",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

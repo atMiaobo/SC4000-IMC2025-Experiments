@@ -1,0 +1,56 @@
+# Recommended assignment profile: the distinctive part is the adaptive router.
+# It runs expensive tile/rotation views only where geometry or graph topology asks for them.
+name: adaptive_graph_balanced
+retrieval:
+  model_name: vit_base_patch14_dinov2.lvd142m
+  batch_size: 8
+  min_neighbors: 38
+  max_neighbors: 58
+  similarity_threshold: 0.18
+matching:
+  base_resize: 1280
+  max_keypoints: 4096
+  detection_threshold: 0.01
+  lightglue_filter_threshold: 0.15
+  width_confidence: 0.99
+  depth_confidence: -1.0
+  ransac_reproj_threshold: 4.5
+  strong_min_inliers: 45
+  strong_min_ratio: 0.18
+  strong_min_coverage: 0.05
+  easy_inliers: 120
+  easy_ratio: 0.55
+  easy_coverage: 0.30
+  triangle_borderline_inliers: 30
+rescue:
+  enable_tiles: true
+  tile_resize: 1024
+  full_tile_for_all_valid: false
+  tile_trigger_min_inliers: 16
+  tile_trigger_max_inliers: 150
+  tile_trigger_coverage: 0.34
+  high_similarity_threshold: 0.42
+  max_rescues_per_image: 20
+  enable_rotation: true
+  rotation_similarity_threshold: 0.50
+  rotation_max_base_inliers: 45
+  rotation_stop_inliers: 90
+  low_degree_rescue: true
+  low_degree_target: 2
+  low_degree_extra_pairs: 3
+graph:
+  triangle_support_required_for_borderline: 1
+  singleton_as_outlier: true
+colmap:
+  verify_max_error: 4.5
+  verify_min_num_inliers: 15
+  min_num_matches: 15
+  min_model_size: 3
+  max_num_models: 25
+  init_min_num_inliers: 50
+  abs_pose_min_num_inliers: 16
+  abs_pose_min_inlier_ratio: 0.16
+runtime:
+  device: cuda
+  seed: 2026
+  use_amp: true

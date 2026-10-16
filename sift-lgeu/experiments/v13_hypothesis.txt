@@ -1,0 +1,22 @@
+V13 Hypothesis: The LGEU GBM model's num_gap feature is the root cause of poor pair
+selection for video sequences like stairs. num_gap is computed as the minimum absolute
+numeric difference between filename tokens divided by 1000; for 13-digit millisecond
+Unix timestamps, two frames ~600 ms apart (typical at ~1.6 fps effective rate for 51
+frames over ~30 s) produce num_gap ≈ 0.6. The GBM model associates high num_gap values
+with cross-scene pairs (since same-scene non-video pairs often have small sequential
+numeric indices), so it ranks these temporally distant video frame pairs with low
+same-scene probability and excludes them from the TOPK=20 selection. This leaves
+many video frames with no valid SIFT neighbors and strands them as outliers with zero
+cameras registered — the failure mode observed in V9 (14 stairs outliers, 6/51 total).
+V12 tried to patch this with temporal augmentation, but hurt scores (4/51) because
+stairs has two simultaneous cameras whose timestamps interleave: adding ±2 sequential
+temporal neighbors connects frames across camera streams, creating erroneous cross-stream
+edges that collapse the two sub-scenes into one unresolvable cluster. V13 instead bypasses
+the LGEU model entirely for video sequences and ranks pairs by raw cosine similarity of
+global descriptors (top-20 per image). Cosine similarity captures visual appearance
+directly without the timestamp artifact, is the natural distance metric the global
+descriptor was trained under, and is robust to the dual-camera interleaved-timestamp
+structure because it scores pairs by what they look like, not when they were captured.
+Non-video datasets (ETs and all hidden structured-capture datasets) are unaffected and
+use the standard V9 GBM+TOPK=20 path. We expect fewer outlier images for stairs and
+a net increase in registered cameras over V9 (25/73) without regressing ETs (19/22).

@@ -1,0 +1,27 @@
+{
+  "dataset": "ETs",
+  "mode": "baseline",
+  "num_images": 22,
+  "num_candidate_pairs": 229,
+  "num_matched_pairs": 229,
+  "num_accepted_pairs": 201,
+  "num_rescued_pairs": 0,
+  "component_sizes": [
+    22
+  ],
+  "elapsed_seconds": 74.55297040939331,
+  "colmap": {
+    "num_models": 1,
+    "models": [
+      {
+        "map_id": 0,
+        "registered": 22,
+        "cluster": "cluster0"
+      }
+    ],
+    "num_registered": 22,
+    "num_images": 22,
+    "database": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/smoke/baseline/ETs/colmap/database.db",
+    "sfm_dir": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/smoke/baseline/ETs/colmap/sfm"
+  }
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "config": "ablation_A0",
+    "config_name": "ablation_A0_backbone",
+    "mean_score": 22.92134831460674,
+    "mean_mAA": 12.944162436548224,
+    "mean_clusterness": 100.0,
+    "wall_seconds": 146.96492743492126,
+    "per_dataset": {
+      "amy_gardens": {
+        "score": 22.92134831460674,
+        "mAA": 12.944162436548224,
+        "clusterness": 100.0,
+        "num_images": 200,
+        "num_candidate_pairs": 2467,
+        "num_accepted_pairs": 410,
+        "num_rescued_pairs": 0,
+        "num_registered": 153,
+        "num_models": 18,
+        "elapsed_s": 146.72109866142273
+      }
+    }
+  },
+  {
+    "config": "proposed_B",
+    "config_name": "proposed_B_backbone_plus_propagation",
+    "mean_score": 23.120089786756456,
+    "mean_mAA": 13.071065989847716,
+    "mean_clusterness": 100.0,
+    "wall_seconds": 142.84209060668945,
+    "per_dataset": {
+      "amy_gardens": {
+        "score": 23.120089786756456,
+        "mAA": 13.071065989847716,
+        "clusterness": 100.0,
+        "num_images": 200,
+        "num_candidate_pairs": 2467,
+        "num_accepted_pairs": 410,
+        "num_rescued_pairs": 0,
+        "num_registered": 145,
+        "num_models": 15,
+        "elapsed_s": 142.82735109329224
+      }
+    }
+  }
+]

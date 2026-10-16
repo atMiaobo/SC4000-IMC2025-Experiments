@@ -1,0 +1,87 @@
+{
+  "dataset": "fbk_vineyard",
+  "mode": "adaptive",
+  "num_images": 163,
+  "num_candidate_pairs": 712,
+  "num_matched_pairs": 716,
+  "num_accepted_pairs": 607,
+  "num_rescued_pairs": 4,
+  "component_sizes": [
+    163
+  ],
+  "elapsed_seconds": 108.87997150421143,
+  "colmap": {
+    "num_models": 13,
+    "models": [
+      {
+        "map_id": 0,
+        "registered": 2,
+        "cluster": "cluster0"
+      },
+      {
+        "map_id": 3,
+        "registered": 3,
+        "cluster": "cluster1"
+      },
+      {
+        "map_id": 5,
+        "registered": 3,
+        "cluster": "cluster2"
+      },
+      {
+        "map_id": 11,
+        "registered": 3,
+        "cluster": "cluster3"
+      },
+      {
+        "map_id": 12,
+        "registered": 3,
+        "cluster": "cluster4"
+      },
+      {
+        "map_id": 6,
+        "registered": 4,
+        "cluster": "cluster5"
+      },
+      {
+        "map_id": 7,
+        "registered": 4,
+        "cluster": "cluster6"
+      },
+      {
+        "map_id": 2,
+        "registered": 5,
+        "cluster": "cluster7"
+      },
+      {
+        "map_id": 4,
+        "registered": 5,
+        "cluster": "cluster8"
+      },
+      {
+        "map_id": 10,
+        "registered": 5,
+        "cluster": "cluster9"
+      },
+      {
+        "map_id": 8,
+        "registered": 7,
+        "cluster": "cluster10"
+      },
+      {
+        "map_id": 1,
+        "registered": 8,
+        "cluster": "cluster11"
+      },
+      {
+        "map_id": 9,
+        "registered": 14,
+        "cluster": "cluster12"
+      }
+    ],
+    "num_registered": 62,
+    "num_images": 163,
+    "database": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/fbk/adaptive/fbk_vineyard/colmap/database.db",
+    "sfm_dir": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/fbk/adaptive/fbk_vineyard/colmap/sfm"
+  }
+}

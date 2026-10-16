@@ -1,0 +1,20 @@
+V22 Hypothesis: V21 lowered abs_pose_min_num_inliers from 4 to 3 (the theoretical P3P
+minimum) for video scenes and tied V7 at 8/51 stairs cameras registered. The remaining
+untried COLMAP mapper parameter from V18 — which changed three parameters simultaneously
+and upload_failed — is init_min_tri_angle. V21 preserves the V7 video default of 1.0
+degrees for this parameter. For a forward-facing staircase recording, consecutive frames
+share a narrow field of view and nearly-parallel optical axes; the true geometric baseline
+between adjacent frames is small, so the triangulation angle of any candidate seed pair
+often falls below 1.0 degrees. When COLMAP's incremental mapper evaluates seed pairs for
+initialisation, it rejects those whose triangulation angle is below init_min_tri_angle,
+forcing it to select a geometrically inferior seed pair — one with a wider apparent angle
+but weaker photometric overlap. Starting from a poor seed pair produces a sparse initial
+3D point cloud, which in turn limits how many subsequent frames can accumulate the three
+inlier correspondences required for registration (even with abs_pose_min_num_inliers=3).
+V22 lowers init_min_tri_angle from 1.0 to 0.5 degrees for video scenes only, allowing
+COLMAP to select the geometrically best available seed pair. A better seed pair yields a
+denser initial point cloud, which increases the likelihood that adjacent frames find three
+or more inlier correspondences and can be registered. Combined with V21's
+abs_pose_min_num_inliers=3, this targets the seed-initialisation bottleneck that V21 alone
+could not address. Non-video scenes and small datasets (N <= MAX_EXHAUSTIVE_N) retain V7
+settings unchanged, so ETs and hidden structured-capture datasets are unaffected.

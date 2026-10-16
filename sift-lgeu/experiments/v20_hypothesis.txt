@@ -1,0 +1,19 @@
+V20 Hypothesis: Versions V14-V19 all tried to rescue the 14 outlier stairs images
+by forcing SIFT edges at the Python level — through GBM num_gap neutralisation (V14),
+lower Lowe-match thresholds (V15/V16), looser Lowe ratios (V19), and increased SIFT
+feature density (V17). None succeeded: these 14 images cannot accumulate even 30 Lowe
+matches with any of their top-20 GBM-selected neighbours under any tested parametrisation.
+The SIFT edge gate is simply impassable for them. V20 abandons the SIFT-edge rescue
+approach entirely and instead uses post-clustering outlier reassignment: after V16
+clustering (GBM num_gap=0 + Lowe threshold=30) assigns images to scenes or "outliers",
+each outlier is reassigned to the scene of its most visually similar non-outlier image
+by cosine similarity of precomputed global descriptors. These outlier images are then
+passed to COLMAP as members of their reassigned scene (scene_0 or scene_2). COLMAP
+runs exhaustive matching on the enlarged scene using its own internal SIFT pipeline —
+without the 30-match Python threshold — giving the outlier images a genuine second
+chance at registration. If the outlier images share even sparse geometric overlap with
+their reassigned scene neighbours, COLMAP's bundle adjustment can register them. Worst
+case, they fail to register and receive identity poses, which is no worse than their
+current status. SfM uses the proven V7 path (exhaustive for N<=100 video) to avoid
+the upload failures seen in V18/V19. Non-video and small datasets (N<=40) are fully
+unaffected and use standard V9 logic throughout.

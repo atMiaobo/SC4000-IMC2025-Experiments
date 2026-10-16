@@ -1,0 +1,24 @@
+[
+  {
+    "config": "ablation_A0",
+    "config_name": "ablation_A0_backbone",
+    "mean_score": 61.33333333333333,
+    "mean_mAA": 44.230769230769226,
+    "mean_clusterness": 100.0,
+    "wall_seconds": 18.84894037246704,
+    "per_dataset": {
+      "ETs": {
+        "score": 61.33333333333333,
+        "mAA": 44.230769230769226,
+        "clusterness": 100.0,
+        "num_images": 22,
+        "num_candidate_pairs": 224,
+        "num_accepted_pairs": 68,
+        "num_rescued_pairs": 0,
+        "num_registered": 19,
+        "num_models": 2,
+        "elapsed_s": 18.64690089225769
+      }
+    }
+  }
+]

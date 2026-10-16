@@ -1,0 +1,14 @@
+{
+  "id": "miaobo/imc2025-lgeu-clean-room",
+  "title": "IMC2025 LGEU Clean-room",
+  "code_file": "notebooks/final_imc2025_lgeu.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "competition_sources": [
+    "image-matching-challenge-2025"
+  ],
+  "dataset_sources": ["miaobo/imc2025-lgeu-assets"]
+}

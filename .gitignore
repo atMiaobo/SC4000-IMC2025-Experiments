@@ -1,0 +1,84 @@
+# ---------------------------------------------------------------------------
+# SC4000 IMC2025 Experiments — consolidated repository .gitignore
+# Keep this repository source-only. Weights, datasets, caches and large
+# generated artifacts live OUTSIDE git (see REPRODUCIBILITY.md).
+# ---------------------------------------------------------------------------
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Virtual environments / package manager caches
+.venv/
+venv/
+env/
+.uv-cache/
+.cache/
+
+# Pretrained model weights (download separately — NOT redistributed here)
+# DINOv2, ALIKED, LightGlue, MASt3R, pycolmap wheels, etc.
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.whl
+models/hf/
+models/torch/
+weights/
+# Exception: our own small trained LGEU classifier is tracked explicitly
+!sift-lgeu/models/lgeu.joblib
+
+# Competition data / raw images (NEVER commit — see REPRODUCIBILITY.md)
+data/
+downloads/
+*.zip
+train_labels.csv
+train_thresholds.csv
+sample_submission.csv
+
+# Large generated reconstruction artifacts
+*.db
+*.db-shm
+*.db-wal
+colmap/
+outputs/**/colmap/
+
+# Kaggle bundles / operational snapshots (published separately on Kaggle)
+kaggle_bundle/
+kaggle_agent/
+
+# Vendored third-party source trees (reference by commit, do not vendor)
+third_party/LightGlue/
+third_party/mast3r/
+third_party/dust3r/
+third_party/croco/
+
+# Secrets — must never be committed
+.env
+.env.*
+kaggle.json
+**/kaggle.json
+*.pem
+*.key
+id_rsa
+id_ed25519
+credentials*
+*token*
+secrets*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

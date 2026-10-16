@@ -1,0 +1,20 @@
+V21 Hypothesis: Versions V7-V20 (excluding the upload_failed V18/V19) use
+abs_pose_min_num_inliers=4 in COLMAP's incremental mapper for video scenes. For
+forward-facing staircase video, COLMAP initializes from a seed pair and attempts to
+extend the reconstruction frame by frame. Consecutive staircase frames have limited
+visual overlap (small inter-frame baseline) and the resulting sparse 3D point cloud
+contains very few points visible in any single adjacent frame — often exactly 3, the
+theoretical P3P minimum. With the threshold at 4, COLMAP rejects these frames as
+unregisterable, which explains why scene_0 (15 images) and scene_2 (20 images) both
+plateau at only 3 cameras each in V9 diagnostics despite having real geometric overlap.
+V21 lowers abs_pose_min_num_inliers from 4 to 3 (the P3P minimum) for video scenes
+only, allowing cameras with sparse-but-real 3D correspondences to be registered. V18
+changed three mapper parameters simultaneously (init_min_num_inliers, init_min_tri_angle,
+abs_pose_min_num_inliers) and upload_failed; V21 isolates only abs_pose_min_num_inliers
+to cleanly attribute any effect and reduce the risk of API-level failures. Scene
+clustering uses V16 (GBM num_gap=0 + Lowe threshold=30 for video), the best-scoring
+clustering configuration (7/51 stairs, 19/22 ETs). Non-video scenes and small datasets
+(N<=40) retain V7's original settings (abs_pose_min_num_inliers=8) unchanged, protecting
+ETs and hidden structured-capture datasets from regression. Expected improvement: 2-4
+additional stairs cameras registered within scene_0 and scene_2, potentially exceeding
+V7's best of 8/51 stairs cameras.

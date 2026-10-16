@@ -1,0 +1,144 @@
+{
+  "datasets": {
+    "ETs": {
+      "images_in_sample": 22,
+      "images_available": 22,
+      "scenes_discovered": [
+        "outliers",
+        "scene_0",
+        "scene_1"
+      ],
+      "sfm_info": {
+        "scene_0": {
+          "registered": 10,
+          "total": 11,
+          "num_points3D": 908,
+          "num_reconstructions": 1,
+          "is_video": false,
+          "match_mode": "exhaustive"
+        },
+        "scene_1": {
+          "registered": 9,
+          "total": 9,
+          "num_points3D": 1162,
+          "num_reconstructions": 1,
+          "is_video": false,
+          "match_mode": "exhaustive"
+        },
+        "outliers": {
+          "registered": 0,
+          "total": 2,
+          "error": "no_reconstruction",
+          "is_video": false,
+          "match_mode": "exhaustive"
+        }
+      },
+      "error": null
+    },
+    "amy_gardens": {
+      "images_in_sample": 200,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "fbk_vineyard": {
+      "images_in_sample": 163,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "imc2023_haiper": {
+      "images_in_sample": 54,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "imc2023_heritage": {
+      "images_in_sample": 209,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "imc2023_theather_imc2024_church": {
+      "images_in_sample": 76,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "imc2024_dioscuri_baalshamin": {
+      "images_in_sample": 138,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "imc2024_lizard_pond": {
+      "images_in_sample": 214,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "pt_brandenburg_british_buckingham": {
+      "images_in_sample": 225,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "pt_piazzasanmarco_grandplace": {
+      "images_in_sample": 168,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "pt_sacrecoeur_trevi_tajmahal": {
+      "images_in_sample": 225,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "pt_stpeters_stpauls": {
+      "images_in_sample": 200,
+      "images_available": 0,
+      "scenes_discovered": [],
+      "sfm_info": {},
+      "error": null
+    },
+    "stairs": {
+      "images_in_sample": 51,
+      "images_available": 51,
+      "scenes_discovered": [
+        "scene_0",
+        "scene_1"
+      ],
+      "sfm_info": {
+        "scene_0": {
+          "registered": 3,
+          "total": 28,
+          "num_points3D": 14,
+          "num_reconstructions": 1,
+          "is_video": true,
+          "match_mode": "exhaustive"
+        },
+        "scene_1": {
+          "registered": 2,
+          "total": 23,
+          "num_points3D": 4,
+          "num_reconstructions": 1,
+          "is_video": true,
+          "match_mode": "exhaustive"
+        }
+      },
+      "error": null
+    }
+  },
+  "version": 20
+}

@@ -1,0 +1,32 @@
+{
+  "dataset": "ETs",
+  "mode": "adaptive",
+  "num_images": 22,
+  "num_candidate_pairs": 88,
+  "num_matched_pairs": 94,
+  "num_accepted_pairs": 81,
+  "num_rescued_pairs": 6,
+  "component_sizes": [
+    22
+  ],
+  "elapsed_seconds": 25.31533694267273,
+  "colmap": {
+    "num_models": 2,
+    "models": [
+      {
+        "map_id": 1,
+        "registered": 9,
+        "cluster": "cluster0"
+      },
+      {
+        "map_id": 0,
+        "registered": 10,
+        "cluster": "cluster1"
+      }
+    ],
+    "num_registered": 19,
+    "num_images": 22,
+    "database": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/cmp/adaptive/ETs/colmap/database.db",
+    "sfm_dir": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/cmp/adaptive/ETs/colmap/sfm"
+  }
+}

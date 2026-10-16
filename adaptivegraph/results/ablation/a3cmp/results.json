@@ -1,0 +1,140 @@
+[
+  {
+    "config": "ablation_A2",
+    "config_name": "ablation_A2_graph",
+    "mean_score": 54.168918133096604,
+    "mean_mAA": 43.13945313945314,
+    "mean_clusterness": 82.49722530521642,
+    "wall_seconds": 257.17692470550537,
+    "per_dataset": {
+      "ETs": {
+        "score": 61.33333333333333,
+        "mAA": 44.230769230769226,
+        "clusterness": 100.0,
+        "num_images": 22,
+        "num_candidate_pairs": 224,
+        "num_accepted_pairs": 68,
+        "num_rescued_pairs": 0,
+        "num_registered": 19,
+        "num_models": 2,
+        "elapsed_s": 17.23612642288208
+      },
+      "fbk_vineyard": {
+        "score": 40.05222512361798,
+        "mAA": 26.2987012987013,
+        "clusterness": 83.9622641509434,
+        "num_images": 163,
+        "num_candidate_pairs": 2086,
+        "num_accepted_pairs": 471,
+        "num_rescued_pairs": 0,
+        "num_registered": 163,
+        "num_models": 11,
+        "elapsed_s": 192.17119765281677
+      },
+      "imc2023_haiper": {
+        "score": 61.12119594233848,
+        "mAA": 58.88888888888889,
+        "clusterness": 63.52941176470588,
+        "num_images": 54,
+        "num_candidate_pairs": 496,
+        "num_accepted_pairs": 183,
+        "num_rescued_pairs": 0,
+        "num_registered": 54,
+        "num_models": 2,
+        "elapsed_s": 47.54983854293823
+      }
+    }
+  },
+  {
+    "config": "ablation_A3_naive",
+    "config_name": "ablation_A3_rescue_naive",
+    "mean_score": 41.59244990432109,
+    "mean_mAA": 37.76954526954527,
+    "mean_clusterness": 47.36694677871148,
+    "wall_seconds": 2223.2200815677643,
+    "per_dataset": {
+      "ETs": {
+        "score": 35.228677379480835,
+        "mAA": 28.846153846153843,
+        "clusterness": 45.23809523809524,
+        "num_images": 22,
+        "num_candidate_pairs": 224,
+        "num_accepted_pairs": 149,
+        "num_rescued_pairs": 145,
+        "num_registered": 21,
+        "num_models": 1,
+        "elapsed_s": 165.5589680671692
+      },
+      "fbk_vineyard": {
+        "score": 26.679649464459594,
+        "mAA": 22.24025974025974,
+        "clusterness": 33.33333333333333,
+        "num_images": 163,
+        "num_candidate_pairs": 2086,
+        "num_accepted_pairs": 1595,
+        "num_rescued_pairs": 1317,
+        "num_registered": 163,
+        "num_models": 1,
+        "elapsed_s": 1655.9617342948914
+      },
+      "imc2023_haiper": {
+        "score": 62.869022869022864,
+        "mAA": 62.22222222222222,
+        "clusterness": 63.52941176470588,
+        "num_images": 54,
+        "num_candidate_pairs": 496,
+        "num_accepted_pairs": 409,
+        "num_rescued_pairs": 341,
+        "num_registered": 54,
+        "num_models": 2,
+        "elapsed_s": 401.67484164237976
+      }
+    }
+  },
+  {
+    "config": "ablation_A3",
+    "config_name": "ablation_A3_scene_preserving",
+    "mean_score": 44.0066870527009,
+    "mean_mAA": 40.573408073408075,
+    "mean_clusterness": 51.363749336665116,
+    "wall_seconds": 2352.8234791755676,
+    "per_dataset": {
+      "ETs": {
+        "score": 45.69138276553106,
+        "mAA": 46.15384615384615,
+        "clusterness": 45.23809523809524,
+        "num_images": 22,
+        "num_candidate_pairs": 224,
+        "num_accepted_pairs": 126,
+        "num_rescued_pairs": 145,
+        "num_registered": 21,
+        "num_models": 1,
+        "elapsed_s": 168.4457905292511
+      },
+      "fbk_vineyard": {
+        "score": 26.11758231679354,
+        "mAA": 18.344155844155843,
+        "clusterness": 45.32374100719424,
+        "num_images": 163,
+        "num_candidate_pairs": 2086,
+        "num_accepted_pairs": 1524,
+        "num_rescued_pairs": 1317,
+        "num_registered": 154,
+        "num_models": 2,
+        "elapsed_s": 1775.0545706748962
+      },
+      "imc2023_haiper": {
+        "score": 60.21109607577807,
+        "mAA": 57.22222222222222,
+        "clusterness": 63.52941176470588,
+        "num_images": 54,
+        "num_candidate_pairs": 496,
+        "num_accepted_pairs": 409,
+        "num_rescued_pairs": 341,
+        "num_registered": 53,
+        "num_models": 2,
+        "elapsed_s": 409.2875201702118
+      }
+    }
+  }
+]

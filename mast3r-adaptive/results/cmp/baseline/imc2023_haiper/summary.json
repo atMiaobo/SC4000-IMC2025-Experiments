@@ -1,0 +1,33 @@
+{
+  "dataset": "imc2023_haiper",
+  "mode": "baseline",
+  "num_images": 54,
+  "num_candidate_pairs": 512,
+  "num_matched_pairs": 512,
+  "num_accepted_pairs": 427,
+  "num_rescued_pairs": 0,
+  "component_sizes": [
+    31,
+    23
+  ],
+  "elapsed_seconds": 142.7770540714264,
+  "colmap": {
+    "num_models": 2,
+    "models": [
+      {
+        "map_id": 0,
+        "registered": 23,
+        "cluster": "cluster0"
+      },
+      {
+        "map_id": 1,
+        "registered": 31,
+        "cluster": "cluster1"
+      }
+    ],
+    "num_registered": 54,
+    "num_images": 54,
+    "database": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/cmp/baseline/imc2023_haiper/colmap/database.db",
+    "sfm_dir": "/home/mihao/Projects/SC4000-MASt3R-candidate/outputs/cmp/baseline/imc2023_haiper/colmap/sfm"
+  }
+}
